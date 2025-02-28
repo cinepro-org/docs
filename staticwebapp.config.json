@@ -1,1 +1,20 @@
-{}
+{
+  "routes": [
+    {
+      "route": "^(?!\\/(script\\.js|favicon\\.ico|styles\\.css|index\\.html|site\\.webmanifest|\\.github\\/workflows\\/azure-static-web-apps-gentle-flower-0a392281e\\.yml|License|readme\\.md)).*$",
+      "methods": [
+        "get",
+        "head",
+        "post",
+        "delete",
+        "put",
+        "connect",
+        "options",
+        "patch",
+        "trace"
+      ],
+      "redirect": "/",
+      "statusCode": 301
+    }
+  ]
+}
