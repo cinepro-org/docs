@@ -4,6 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cinepro Documentation</title>
+    <meta name="description" content="Cinepro Documentation: Fetch movie and TV show information including video files and subtitles with ease. Built for developers, by developers.">
+    <meta name="keywords" content="Cinepro, API, movie scraping, TV show scraping, video files, subtitles, developers">
+    <meta name="author" content="Cinepro Team">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Cinepro Documentation">
+    <meta property="og:description" content="Fetch movie and TV show information including video files and subtitles with ease. Built for developers, by developers.">
+    <meta property="og:image" content="https://cinepro.ooguy.com/logo.png">
+    <meta property="og:url" content="https://cinepro.ooguy.com/">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Cinepro Documentation">
+    <meta name="twitter:description" content="Fetch movie and TV show information including video files and subtitles with ease. Built for developers, by developers.">
+    <meta name="twitter:image" content="https://cinepro.ooguy.com/logo.png">
+    <meta name="twitter:site" content="@cinepro">
+    <meta name="theme-color" content="#ff4444">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="manifest" href="site.webmanifest">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <script>
@@ -28,6 +45,7 @@
         <nav class="relative z-50 px-4 py-6">
             <div class="container mx-auto flex justify-between items-center">
                 <div class="flex items-center gap-2">
+                    <img src="logo.png" alt="Cinepro Logo" class="h-10">
                     <h1 class="text-3xl font-bold text-white cursor-pointer" id="title">Cinepro</h1>
                     <span class="px-2 py-1 text-xs font-medium bg-accent/20 text-accent rounded-full">API</span>
                 </div>
@@ -161,10 +179,10 @@
     </div>
 
     <footer class="py-8 text-center text-sm text-gray-400 bg-[rgba(255,255,255,0.03)] mt-20">
-        This project is brought to you by the <span class="text-accent">Cinepro team</span>.
-        Docs website made with <i class="bi bi-heart-fill text-accent"></i> by <span class="text-accent">ambrosial</span>.
+        This project is brought to you by the <span class="text-accent" style="cursor: pointer;" onclick="window.open('https://github.com/orgs/cinepro-org/people', '_blank')">CinePro team</span>.
+        <br>Docs website made with <i class="bi bi-heart-fill text-accent"></i> by <span class="text-accent" style="cursor: pointer;" onclick="window.open('https://github.com/orgs/cinepro-org/people/ambr0sial', '_blank')">ambrosial</span>.
     </footer>
 
     <script src="script.js"></script>
 </body>
-</html> 
+</html>

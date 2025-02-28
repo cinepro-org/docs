@@ -104,7 +104,7 @@ code {
 }
 
 .animate-float {
-    animation: float 6s ease-in-out infinite;
+    animation: float 6s ease-in-out infinite, box-shadow 0.3s ease;;
 }
 
 @media (max-width: 768px) {

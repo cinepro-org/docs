@@ -1,0 +1,21 @@
+{
+    "name": "CinePro",
+    "short_name": "CinePro",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#000000",
+    "description": "CinePro - The Largest, Working, Opensource Movie and Tv Scraper",
+    "icons": [
+        {
+            "src": "/icons/logo-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/icons/logo-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}
