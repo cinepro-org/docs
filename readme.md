@@ -2,7 +2,7 @@
 
 This repository contains the source code for the Cine Pro Documentation website.
 
-## [Read the documentation](https://cinepro.ooguy.com//)
+## [Read the documentation](https://cinepro-org.github.io/docs)
 
 ## Contributing
 
