@@ -4,8 +4,8 @@
   "name": "CinePro Docs",
   "colors": {
     "primary": "#f5413f",
-    "light": "#07C983",
-    "dark": "#15803D"
+    "light": "#f5413f",
+    "dark": "#f5413f"
   },
   "favicon": "/favicon.svg",
   "navigation": {
@@ -65,7 +65,7 @@
         { 
           "anchor": "Community",
           "href": "https://github.com/orgs/cinepro-org/discussions/",
-          "icon": "community"
+          "icon": "people"
         },
         {
           "anchor": "GitHub",
@@ -82,6 +82,13 @@
   "footer": {
     "socials": {
       "github": "https://github.com/cinepro-org"
+    }
+  },
+  "background": {
+    "decoration": "gradient",
+    "color": {
+      "light": "#f9f9f9",
+      "dark": "#1a1a1a"
     }
   }
 }
