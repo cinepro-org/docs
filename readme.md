@@ -1,19 +1,32 @@
-# Cine Pro
+# Mintlify Starter Kit
 
-This repository contains the source code for the Cine Pro Documentation website.
+Click on `Use this template` to copy the Mintlify starter kit. The starter kit contains examples including
 
-## [Read the documentation](https://cinepro-org.github.io/docs)
+- Guide pages
+- Navigation
+- Customizations
+- API Reference pages
+- Use of popular components
 
-## Contributing
+### Development
 
-If you would like to contribute to the documentation, please follow the steps below:
+Install the [Mintlify CLI](https://www.npmjs.com/package/mintlify) to preview the documentation changes locally. To install, use the following command
 
-1. Fork the repository
-2. Clone the repository to your local machine
-3. Do your work (please follow the obvious conventions [i.e. if you are adding some new custom js, add it to the `js` file/folder instead in the html itself])
-4. Commit your changes to your fork
-5. Open a pull request describing the changes you made
+```
+npm i -g mintlify
+```
 
-## License
+Run the following command at the root of your documentation (where docs.json is)
 
-This project is licensed under the Attribution-ShareAlike 4.0 International license. See the [LICENSE](/LICENSE) file for more information.
+```
+mintlify dev
+```
+
+### Publishing Changes
+
+Install our Github App to auto propagate changes from your repo to your deployment. Changes will be deployed to production automatically after pushing to the default branch. Find the link to install on your dashboard. 
+
+#### Troubleshooting
+
+- Mintlify dev isn't running - Run `mintlify install` it'll re-install dependencies.
+- Page loads as a 404 - Make sure you are running in a folder with `docs.json`
