@@ -1,32 +1,13 @@
-# Mintlify Starter Kit
+# CinePro Docs
 
-Click on `Use this template` to copy the Mintlify starter kit. The starter kit contains examples including
+This repository contains the source code for the [CinePro Documentation website](https://cinepro.mintlify.app/).
 
-- Guide pages
-- Navigation
-- Customizations
-- API Reference pages
-- Use of popular components
+[Read the documentation](https://cinepro.mintlify.app/)
 
-### Development
+## Contributing
 
-Install the [Mintlify CLI](https://www.npmjs.com/package/mintlify) to preview the documentation changes locally. To install, use the following command
+If you would like to contribute to the documentation, please check the CONTRIBUTION.md file.
 
-```
-npm i -g mintlify
-```
+## License
 
-Run the following command at the root of your documentation (where docs.json is)
-
-```
-mintlify dev
-```
-
-### Publishing Changes
-
-Install our Github App to auto propagate changes from your repo to your deployment. Changes will be deployed to production automatically after pushing to the default branch. Find the link to install on your dashboard. 
-
-#### Troubleshooting
-
-- Mintlify dev isn't running - Run `mintlify install` it'll re-install dependencies.
-- Page loads as a 404 - Make sure you are running in a folder with `docs.json`
+This project is for personal and non-commercial use ONLY. Selling this project or adding tracking/advertisements is strictly prohibited. Reuse is allowed with attribution. No warranty provided.
