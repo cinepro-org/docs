@@ -77,12 +77,12 @@
     }
   },
   "navbar": {
-    "links": [
+    "primary": 
       {
-        "label": "GitHub",
-        "href": "https://github.com/cinepro-org/backend"
+        "type": "button",
+        "label": "Get Started",
+        "href": "https://cinepro.mintlify.app/quickstart"
       }
-    ]
   },
   "logo": {
     "light": "/logo/light.svg",
