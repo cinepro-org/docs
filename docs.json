@@ -132,9 +132,20 @@
   },
   "seo": {
     "metatags": {
-      "og:title": "CinePro Docs",
-      "og:description": "CinePro is a powerful is an open-source movie and TV show scraper API designed to provide links to media content available on the internet. It is built with a focus on performance, reliability, and ease of use, making it an ideal choice for developers looking to integrate media content such as movies and tv shows into their applications.",
-      "og:image": "/logo/light.svg"
+      "title": "CinePro Documentation - Open-Source Media Scraper API",
+      "description": "CinePro is a high-performance, open-source movie and TV show scraper API. Easily integrate media content into your apps with reliable and fast access to streaming links.",
+      "keywords": "CinePro, movie API, tv show API, open-source media scraper, streaming scraper, TMDB, Node.js media API, movie integration, video content API",
+      "robots": "index, follow",
+      "og:title": "CinePro Documentation",
+      "og:type": "website",
+      "og:description": "CinePro is a powerful open-source movie and TV show scraper API designed to provide links to media content available online. Built for performance and ease of use.",
+      "og:image": "/logo/dark.png",
+      "og:url": "https://cinepro.mintlify.app",
+      "twitter:card": "summary_large_image",
+      "twitter:title": "CinePro Documentation",
+      "twitter:description": "Explore CinePro, the open-source media scraper API for movies and TV shows. Fast, reliable, and easy to integrate.",
+      "twitter:image": "/logo/dark.png",
+      "theme-color": "#111827"
     },
     "indexing": "navigable"
   }
