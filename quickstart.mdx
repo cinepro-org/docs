@@ -9,28 +9,26 @@ Learn how to set up your environment to run CinePro locally.
 ## Before you start
 
 <Note>
-  Make sure you read the [License](/general-information/license.mdx) section before using this project.
-  This project is for **personal and non-commercial use ONLY**. Selling this project or adding tracking/advertisements is strictly prohibited.
+  Make sure you read the [License](/general-information/license.mdx) section before using this project. This project is for **personal and non-commercial use ONLY**. Selling this project or adding tracking/advertisements is strictly prohibited.
 </Note>
 
 <Warning>
-  ⚠️This project is still in development.⚠️<br/> Some features may not be fully implemented and are subject to change. [Read more about the development process](./in-dev).
+  ⚠️This project is still in development.⚠️\
+  Some features may not be fully implemented and are subject to change. [Read more about the development process](./in-dev).
 </Warning>
 
 <Tabs>
-  <Tab title="Windows" icon="windows">
+  <Tab title="Windows">
     <Steps>
       <Step title="Install Node" icon="square-terminal">
         Make sure you have the following installed on your machine:
+
         <AccordionGroup>
-          <Accordion icon="rectangle-terminal" title="Install Node.js">
-            Install Node.js (v18 or higher) on your machine. You can download it from the
-            [official website](https://nodejs.org/en/download/) or use winget to install it:
-            `winget install OpenJS.NodeJS`.
+          <Accordion title="Install Node.js" icon="rectangle-terminal">
+            Install Node.js (v18 or higher) on your machine. You can download it from the [official website](https://nodejs.org/en/download/) or use winget to install it: `winget install OpenJS.NodeJS`.
           </Accordion>
         </AccordionGroup>
       </Step>
-
       <Step title="Clone the repository" icon="clone">
         Clone the CinePro repository to your local machine using Git. Open your terminal and run the following command:
 
@@ -38,7 +36,6 @@ Learn how to set up your environment to run CinePro locally.
         git clone https://github.com/cinepro-org/backend.git
         ```
       </Step>
-
       <Step title="Install dependencies" icon="cube">
         Navigate to the cloned repository directory and install the required dependencies using npm:
 
@@ -47,29 +44,22 @@ Learn how to set up your environment to run CinePro locally.
         npm i
         ```
       </Step>
-
       <Step title="Configure environment variables" icon="lock">
         Rename the `.env_example` file to `.env` and update the environment variables as needed. The `.env` file contains configuration settings for the CinePro application like API keys and debug settings.
 
-      ```bash Example .env file
-TMDB_API_KEY="your key here" # Replace with your TMDB API key. You can get one at https://www.themoviedb.org/settings/api
-PORT="3000" # The port on which the server will run. You can change this to any available port. default is 3000
-ALLOWED_ORIGINS=[] # Add allowed origins here. Example ["http://localhost:3001", "https://cinepro.mintlify.app"]
-      ```
+        ```bash Example .env file
+        TMDB_API_KEY="your key here" # Replace with your TMDB API key. You can get one at https://www.themoviedb.org/settings/api
+        PORT="3000" # The port on which the server will run. You can change this to any available port. default is 3000
+        ALLOWED_ORIGINS=[] # Add allowed origins here. Example ["http://localhost:3001", "https://cinepro.mintlify.app"]
+        ```
 
         <Info>
           CinePro requires a [TMDB](https://www.themoviedb.org/) API key to function properly. You can obtain a free API key by signing up on their website. Once you have the API key, add it to the `.env` file as `TMDB_API_KEY`.
         </Info>
-
         <Info>
           The `PORT` variable is the port on which the server will run. You can change it to any available port if needed.
         </Info>
-
-        <Warning>
-          Make sure to switch `DEBUG` to `off` in the `.env` file for production use. This will disable debug logging. To enable debug logging, set `DEBUG` to `true` or `1`.
-        </Warning>
       </Step>
-
       <Step title="Start the server" icon="play">
         Run the following command to start the CinePro server:
 
@@ -81,85 +71,17 @@ ALLOWED_ORIGINS=[] # Add allowed origins here. Example ["http://localhost:3001",
       </Step>
     </Steps>
   </Tab>
-
-  <Tab title="Linux" icon="penguin">
-  <Steps>
-      <Step title="Install Node" icon="square-terminal">
-        Make sure you have the following installed on your machine:
-
-        <AccordionGroup>
-          <Accordion icon="rectangle-terminal" title="Install Node.js">
-            Install Node.js (v18 or higher) on your machine. You can download it from the
-            [official website](https://nodejs.org/en/download/) or use the following command:
-            `sudo apt install nodejs`.
-          </Accordion>
-        </AccordionGroup>
-      </Step>
-
-      <Step title="Clone the repository" icon="clone">
-        Clone the CinePro repository to your local machine using Git. Open your terminal and run the following command:
-
-        ```bash
-        git clone https://github.com/cinepro-org/backend.git
-        ```
-      </Step>
-
-      <Step title="Install dependencies" icon="cube">
-        Navigate to the cloned repository directory and install the required dependencies using npm:
-
-        ```bash
-        cd backend
-        npm i
-        ```
-      </Step>
-
-      <Step title="Configure environment variables" icon="lock">
-        Rename the `.env_example` file to `.env` and update the environment variables as needed. The `.env` file contains configuration settings for the CinePro application like API keys and debug settings.
-
-      ```bash Example .env file
-TMDB_API_KEY="your key here" # Replace with your TMDB API key. You can get one at https://www.themoviedb.org/settings/api
-PORT="3000" # The port on which the server will run. You can change this to any available port. default is 3000
-ALLOWED_ORIGINS=[] # Add allowed origins here. Example ["http://localhost:3001", "https://cinepro.mintlify.app"]
-      ```
-
-        <Info>
-          CinePro requires a [TMDB](https://www.themoviedb.org/) API key to function properly. You can obtain a free API key by signing up on their website. Once you have the API key, add it to the `.env` file as `TMDB_API_KEY`.
-        </Info>
-
-        <Info>
-          The `PORT` variable is the port on which the server will run. You can change it to any available port if needed.
-        </Info>
-
-        <Warning>
-          Make sure to switch `DEBUG` to `off` in the `.env` file for production use. This will disable debug logging. To enable debug logging, set `DEBUG` to `true` or `1`.
-        </Warning>
-      </Step>
-
-      <Step title="Start the server" icon="play">
-        Run the following command to start the CinePro server:
-
-        ```bash
-        npm run main
-        ```
-
-        This will start the server, and you should see output indicating that the server is running.
-      </Step>
-    </Steps>
-  </Tab>
-
-  <Tab title="MacOS" icon="apple">
+  <Tab title="Linux">
     <Steps>
       <Step title="Install Node" icon="square-terminal">
         Make sure you have the following installed on your machine:
+
         <AccordionGroup>
-          <Accordion icon="rectangle-terminal" title="Install Node.js">
-            Install Node.js (v18 or higher) on your machine. You can download it from the
-            [official website](https://nodejs.org/en/download/) or use Homebrew to install it:
-            `brew install node`.
+          <Accordion title="Install Node.js" icon="rectangle-terminal">
+            Install Node.js (v18 or higher) on your machine. You can download it from the [official website](https://nodejs.org/en/download/) or use the following command: `sudo apt install nodejs`.
           </Accordion>
         </AccordionGroup>
       </Step>
-
       <Step title="Clone the repository" icon="clone">
         Clone the CinePro repository to your local machine using Git. Open your terminal and run the following command:
 
@@ -167,7 +89,6 @@ ALLOWED_ORIGINS=[] # Add allowed origins here. Example ["http://localhost:3001",
         git clone https://github.com/cinepro-org/backend.git
         ```
       </Step>
-
       <Step title="Install dependencies" icon="cube">
         Navigate to the cloned repository directory and install the required dependencies using npm:
 
@@ -176,29 +97,25 @@ ALLOWED_ORIGINS=[] # Add allowed origins here. Example ["http://localhost:3001",
         npm i
         ```
       </Step>
-
       <Step title="Configure environment variables" icon="lock">
         Rename the `.env_example` file to `.env` and update the environment variables as needed. The `.env` file contains configuration settings for the CinePro application like API keys and debug settings.
 
-      ```bash Example .env file
-TMDB_API_KEY="your key here" # Replace with your TMDB API key. You can get one at https://www.themoviedb.org/settings/api
-PORT="3000" # The port on which the server will run. You can change this to any available port. default is 3000
-ALLOWED_ORIGINS=[] # Add allowed origins here. Example ["http://localhost:3001", "https://cinepro.mintlify.app"]
-      ```
+        ```bash Example .env file
+        TMDB_API_KEY="your key here" # Replace with your TMDB API key. You can get one at https://www.themoviedb.org/settings/api
+        PORT="3000" # The port on which the server will run. You can change this to any available port. default is 3000
+        ALLOWED_ORIGINS=[] # Add allowed origins here. Example ["http://localhost:3001", "https://cinepro.mintlify.app"]
+        ```
 
         <Info>
           CinePro requires a [TMDB](https://www.themoviedb.org/) API key to function properly. You can obtain a free API key by signing up on their website. Once you have the API key, add it to the `.env` file as `TMDB_API_KEY`.
         </Info>
-
         <Info>
           The `PORT` variable is the port on which the server will run. You can change it to any available port if needed.
         </Info>
-
         <Warning>
           Make sure to switch `DEBUG` to `off` in the `.env` file for production use. This will disable debug logging. To enable debug logging, set `DEBUG` to `true` or `1`.
         </Warning>
       </Step>
-
       <Step title="Start the server" icon="play">
         Run the following command to start the CinePro server:
 
@@ -210,14 +127,68 @@ ALLOWED_ORIGINS=[] # Add allowed origins here. Example ["http://localhost:3001",
       </Step>
     </Steps>
   </Tab>
+  <Tab title="MacOS">
+    <Steps>
+      <Step title="Install Node" icon="square-terminal">
+        Make sure you have the following installed on your machine:
 
-  <Tab title="Docker" icon="docker">
+        <AccordionGroup>
+          <Accordion title="Install Node.js" icon="rectangle-terminal">
+            Install Node.js (v18 or higher) on your machine. You can download it from the [official website](https://nodejs.org/en/download/) or use Homebrew to install it: `brew install node`.
+          </Accordion>
+        </AccordionGroup>
+      </Step>
+      <Step title="Clone the repository" icon="clone">
+        Clone the CinePro repository to your local machine using Git. Open your terminal and run the following command:
+
+        ```bash
+        git clone https://github.com/cinepro-org/backend.git
+        ```
+      </Step>
+      <Step title="Install dependencies" icon="cube">
+        Navigate to the cloned repository directory and install the required dependencies using npm:
+
+        ```bash
+        cd backend
+        npm i
+        ```
+      </Step>
+      <Step title="Configure environment variables" icon="lock">
+        Rename the `.env_example` file to `.env` and update the environment variables as needed. The `.env` file contains configuration settings for the CinePro application like API keys and debug settings.
+
+        ```bash Example .env file
+        TMDB_API_KEY="your key here" # Replace with your TMDB API key. You can get one at https://www.themoviedb.org/settings/api
+        PORT="3000" # The port on which the server will run. You can change this to any available port. default is 3000
+        ALLOWED_ORIGINS=[] # Add allowed origins here. Example ["http://localhost:3001", "https://cinepro.mintlify.app"]
+        ```
+
+        <Info>
+          CinePro requires a [TMDB](https://www.themoviedb.org/) API key to function properly. You can obtain a free API key by signing up on their website. Once you have the API key, add it to the `.env` file as `TMDB_API_KEY`.
+        </Info>
+        <Info>
+          The `PORT` variable is the port on which the server will run. You can change it to any available port if needed.
+        </Info>
+        <Warning>
+          Make sure to switch `DEBUG` to `off` in the `.env` file for production use. This will disable debug logging. To enable debug logging, set `DEBUG` to `true` or `1`.
+        </Warning>
+      </Step>
+      <Step title="Start the server" icon="play">
+        Run the following command to start the CinePro server:
+
+        ```bash
+        npm run main
+        ```
+
+        This will start the server, and you should see output indicating that the server is running.
+      </Step>
+    </Steps>
+  </Tab>
+  <Tab title="Docker">
     <Steps>
       <Step title="Install Docker" icon="docker">
         Make sure you have Docker installed on your machine. You can download it from the [official
         website](https://www.docker.com/get-started).
       </Step>
-
       <Step title="Clone the repository" icon="clone">
         Clone the CinePro repository to your local machine using Git. Open your terminal and run the following command:
 
@@ -225,29 +196,25 @@ ALLOWED_ORIGINS=[] # Add allowed origins here. Example ["http://localhost:3001",
         git clone https://github.com/cinepro-org/backend.git
         ```
       </Step>
-
       <Step title="Configure environment variables" icon="lock">
         Rename the `.env_example` file to `.env` and update the environment variables as needed. The `.env` file contains configuration settings for the CinePro application like API keys and debug settings.
 
-      ```bash Example .env file
-TMDB_API_KEY="your key here" # Replace with your TMDB API key. You can get one at https://www.themoviedb.org/settings/api
-PORT="3000" # The port on which the server will run. You can change this to any available port. default is 3000
-ALLOWED_ORIGINS=[] # Add allowed origins here. Example ["http://localhost:3001", "https://cinepro.mintlify.app"]
-      ```
+        ```bash Example .env file
+        TMDB_API_KEY="your key here" # Replace with your TMDB API key. You can get one at https://www.themoviedb.org/settings/api
+        PORT="3000" # The port on which the server will run. You can change this to any available port. default is 3000
+        ALLOWED_ORIGINS=[] # Add allowed origins here. Example ["http://localhost:3001", "https://cinepro.mintlify.app"]
+        ```
 
         <Info>
           CinePro requires a [TMDB](https://www.themoviedb.org/) API key to function properly. You can obtain a free API key by signing up on their website. Once you have the API key, add it to the `.env` file as `TMDB_API_KEY`.
         </Info>
-
         <Info>
           The `PORT` variable is the port on which the server will run. You can change it to any available port if needed.
         </Info>
-
         <Warning>
           Make sure to switch `DEBUG` to `off` in the `.env` file for production use. This will disable debug logging. To enable debug logging, set `DEBUG` to `true` or `1`.
         </Warning>
       </Step>
-
       <Step title="Run Docker Compose" icon="docker">
         Navigate to the cloned repository directory and run the following command to start the CinePro server using Docker Compose:
 
@@ -261,11 +228,7 @@ ALLOWED_ORIGINS=[] # Add allowed origins here. Example ["http://localhost:3001",
   </Tab>
 </Tabs>
 
-<Card
-  title="Access the API"
-  icon="link"
-  horizontal
-> 
-  Congratulations! You have successfully set up CinePro. You can now access the API at `http://localhost:3000`.<br/>
+<Card title="Access the API" icon="link" horizontal>
+  Congratulations! You have successfully set up CinePro. You can now access the API at `http://localhost:3000`.\
   Check out the [API documentation](./api-reference) for more information on how to use the API.
 </Card>
