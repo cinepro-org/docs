@@ -101,7 +101,10 @@
   },
   "integrations": {
     "telemetry": {
-      "enabled": false
+      "enabled": true
+    },
+    "ga4": {
+      "measurementId": "G-9PCBSJ5CP0"
     }
   },
   "banner": {
