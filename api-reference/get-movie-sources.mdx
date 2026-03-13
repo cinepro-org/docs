@@ -1,8 +1,0 @@
----
-openapi: get /movie/{tmdbId}
----
-
-<Note>When `debug mode` is enabled, the array of errors will show that each `error.response` is `500` (or different). That is NOT the acctuall HTTP status code of the response, but rather a custom error code that is used to indicate what might have gone wrong while scraping the provider.</Note>
-
-
-<Note>When `debug mode` is enabled, CinePro will automatically send the error messages of the different providers to the frontend. The `hint` field in the error won't contain a hint about the how to resolve the error, but rather a note to the developers of what might have gone wrong. </Note>

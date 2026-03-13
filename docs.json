@@ -1,155 +1,231 @@
 {
-  "$schema": "https://mintlify.com/docs.json",
-  "theme": "mint",
-  "name": "CinePro Docs",
-  "description": "CinePro is a powerful is an open-source movie and TV show scraper API designed to provide links to media content available on the internet. It is built with a focus on performance, reliability, and ease of use, making it an ideal choice for developers looking to integrate media content such as movies and tv shows into their applications.",
-  "colors": {
-    "primary": "#f5413f",
-    "light": "#f5413f",
-    "dark": "#f5413f"
-  },
-  "favicon": "/logo/favicon.svg",
-  "navigation": {
-    "tabs": [
-      {
-        "tab": "Guides",
-        "groups": [
-          {
-            "group": "Get Started",
-            "pages": [
-              "introduction",
-              "quickstart"
-            ]
-          }, 
-          {
-            "group": "General Information",
-            "pages": [
-              "general-information/license",
-              "general-information/development",
-              "general-information/faq"
-            ]
-          }
-        ]
-      },
-      {
-        "tab": "API Reference",
-        "groups": [
-          {
-            "group": "General Information",
-            "pages": [
-              "api-reference/introduction"
-            ]
-          },
-          {
-            "group": "Scraping Endpoints",
-            "pages": [
-              "api-reference/get-movie-sources",
-              "api-reference/get-tv-show-sources"
-            ]
-          }
-        ]
-      },
-      {
-        "tab": "Versions",
-        "groups": [
-          {
-            "group": "Versions",
-            "pages": [
-              "versions"
-            ]
-          }
-        ]
-      }
-    ],
-    "global": {
-      "anchors": [
-        {
-          "anchor": "GitHub",
-          "href": "https://github.com/cinepro-org/backend",
-          "icon": "github"
-        },
-        { 
-          "anchor": "Community",
-          "href": "https://github.com/orgs/cinepro-org/discussions/",
-          "icon": "people-group"
+    "$schema": "https://mintlify.com/docs.json",
+    "theme": "aspen",
+    "name": "CinePro Docs",
+    "description": "CinePro is a powerful is an open-source movie and TV show scraper API designed to provide links to media content available on the internet. It is built with a focus on performance, reliability, and ease of use, making it an ideal choice for developers looking to integrate media content such as movies and tv shows into their applications.",
+    "colors": {
+        "primary": "#f5413f",
+        "light": "#f5413f",
+        "dark": "#f5413f"
+    },
+    "favicon": "/assets/logo/favicon.svg",
+    "styling": {
+        "codeblocks": {
+            "theme": "material-theme-darker"
         }
-      ]
-    }
-  },
-  "navbar": {
-    "primary": 
-      {
-        "type": "button",
-        "label": "Get Started",
-        "href": "https://cinepro.mintlify.app/quickstart"
-      }
-  },
-  "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
-  },
-  "footer": {
-    "socials": {
-      "github": "https://github.com/cinepro-org"
-    }
-  },
-  "background": {
-    "decoration": "windows",
-    "color": {
-      "dark": "#0f0000"
-    }
-  },
-  "integrations": {
-    "telemetry": {
-      "enabled": true
     },
-    "ga4": {
-      "measurementId": "G-9PCBSJ5CP0"
+    "navigation": {
+        "products": [
+            {
+                "product": "CinePro Core",
+                "description": "OMSS-Compliant CinePro Core API",
+                "icon": "server-cog",
+                "versions": [
+                    {
+                        "version": "v1.0.0",
+                        "tag": "Latest",
+                        "default": true,
+                        "tabs": [
+                            {
+                                "tab": "Documentation",
+                                "icon": "square-library",
+                                "groups": [
+                                    {
+                                        "group": "Get started",
+                                        "icon": "play",
+                                        "pages": ["introduction", "quickstart"]
+                                    },
+                                    {
+                                        "group": "General information",
+                                        "icon": "info",
+                                        "pages": ["core/general-information/license", "core/general-information/development"]
+                                    },
+                                    {
+                                        "group": "Configuration",
+                                        "icon": "settings-2",
+                                        "pages": ["core/configuration/environment", "core/configuration/providers", "core/configuration/deployment"]
+                                    },
+                                    {
+                                        "group": "Ecosystem & versions",
+                                        "icon": "layers",
+                                        "pages": ["ecosystem/overview"]
+                                    }
+                                ]
+                            },
+                            {
+                                "tab": "OMSS & API",
+                                "icon": "square-terminal",
+                                "pages": [
+                                    {
+                                        "group": "Intro",
+                                        "icon": "sparkles",
+                                        "expanded": true,
+                                        "pages": ["core/api-reference/introduction"]
+                                    },
+                                    {
+                                        "group": "Content",
+                                        "icon": "file-play",
+                                        "expanded": true,
+                                        "pages": ["core/api-reference/content/get-streaming-sources-for-a-movie", "core/api-reference/content/get-streaming-sources-for-a-tv-episode"]
+                                    },
+                                    {
+                                        "group": "Health",
+                                        "icon": "heart-pulse",
+                                        "expanded": true,
+                                        "pages": ["core/api-reference/health/home-endpoint", "core/api-reference/health/api-version-endpoint", "core/api-reference/health/health-status-endpoint"]
+                                    },
+                                    {
+                                        "group": "Proxy",
+                                        "icon": "waypoints",
+                                        "expanded": true,
+                                        "pages": ["core/api-reference/proxy/proxy-upstream-provider-requests"]
+                                    },
+                                    {
+                                        "group": "Refresh",
+                                        "icon": "refresh-cw",
+                                        "expanded": true,
+                                        "pages": ["core/api-reference/refresh/refresh-cached-sources"]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "product": "CinePro Frontend",
+                "description": "Beautiful Movie/TV Web App",
+                "icon": "monitor-play",
+                "versions": [
+                    {
+                        "version": "v1.0.0",
+                        "tag": "Latest",
+                        "default": true,
+                        "groups": [
+                            {
+                                "group": "Get started",
+                                "icon": "circle-play",
+                                "pages": ["frontend/introduction"]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "product": "CineHome",
+                "description": "Download automation for the CinePro ecosystem",
+                "icon": "hard-drive-download",
+                "versions": [
+                    {
+                        "version": "v1.0.0",
+                        "tag": "Latest",
+                        "default": true,
+                        "groups": [
+                            {
+                                "group": "Overview",
+                                "icon": "construction",
+                                "pages": ["cinehome/coming-soon"]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        "global": {
+            "anchors": [
+                {
+                    "anchor": "GitHub",
+                    "href": "https://github.com/cinepro-org/core",
+                    "icon": "github"
+                },
+                {
+                    "anchor": "Community",
+                    "href": "https://github.com/orgs/cinepro-org/discussions",
+                    "icon": "users"
+                }
+            ]
+        }
+    },
+    "navbar": {
+        "primary": {
+            "type": "github",
+            "label": "CinePro/Core",
+            "href": "https://github.com/cinepro-org/core"
+        }
+    },
+    "logo": {
+        "light": "/assets/logo/light.svg",
+        "dark": "/assets/logo/dark.svg"
+    },
+    "footer": {
+        "socials": {
+            "github": "https://github.com/cinepro-org"
+        }
+    },
+    "background": {
+        "decoration": "windows",
+        "color": {
+            "dark": "#0f0000"
+        }
+    },
+    "integrations": {
+        "telemetry": {
+            "enabled": true
+        },
+        "ga4": {
+            "measurementId": "G-9PCBSJ5CP0"
+        }
+    },
+    "contextual": {
+        "options": ["chatgpt", "claude", "perplexity", "grok", "cursor", "vscode", "copy", "mcp"]
+    },
+    "api": {
+        "openapi": {
+            "source": "https://raw.githubusercontent.com/omss-spec/omss-spec/refs/heads/main/spec/v1.0/omss-v1.0.yml"
+        },
+        "playground": {
+            "display": "interactive",
+            "proxy": false
+        },
+        "url": "full",
+        "examples": {
+            "languages": ["javascript", "curl", "python", "php", "go", "java"],
+            "prefill": true
+        },
+        "spec": {
+            "download": true
+        },
+        "mdx": {
+            "server": "http://localhost:3000"
+        }
+    },
+    "icons": {
+        "library": "lucide"
+    },
+    "seo": {
+        "metatags": {
+            "title": "CinePro Documentation - Open-Source Media Scraper API",
+            "description": "CinePro is a high-performance, open-source movie and TV show scraper API. Easily integrate media content into your apps with reliable and fast access to streaming links.",
+            "keywords": "CinePro, movie API, tv show API, open-source media scraper, streaming scraper, TMDB, Node.js media API, movie integration, video content API",
+            "robots": "index, follow",
+            "og:title": "CinePro Documentation",
+            "og:type": "website",
+            "og:description": "CinePro is a powerful open-source movie and TV show scraper API designed to provide links to media content available online. Built for performance and ease of use.",
+            "og:image": "/assets/logo/dark.png",
+            "og:url": "https://cinepro.mintlify.app",
+            "twitter:card": "summary_large_image",
+            "twitter:title": "CinePro Documentation",
+            "twitter:description": "Explore CinePro, the open-source media scraper API for movies and TV shows. Fast, reliable, and easy to integrate.",
+            "twitter:image": "/assets/logo/dark.png",
+            "theme-color": "#111827"
+        },
+        "indexing": "navigable"
+    },
+    "errors": {
+        "404": {
+            "redirect": false,
+            "title": "Pageception",
+            "description": "This page fell through a rabbit hole, hopped on the Hogwarts Express, and got lost in Gotham.<br></br>**[Reality resumes here](/)**<br></br><br></br>If you are looking for past documentation, you can find it in [the docs repo](https://github.com/cinepro-org/docs/commits)"
+        }
     }
-  },
-  "banner": {
-    "content": "⚠️CinePro is still in development! [Learn more!](/in-dev)⚠️",
-    "dismissible": true
-  },
-  "contextual": {
-    "options": [
-      "copy",
-      "chatgpt",
-      "claude"
-    ]
-  },
-  "api": {
-    "openapi": {
-      "source": "/api-reference/openapi.json"
-    },
-    "playground": {
-      "display": "interactive",
-      "proxy": false
-    },
-    "examples": {
-      "languages": ["javascript", "curl", "python", "php", "go", "java"]
-    },
-    "mdx": {
-      "server": "http://localhost:3000"
-    }
-  },
-  "seo": {
-    "metatags": {
-      "title": "CinePro Documentation - Open-Source Media Scraper API",
-      "description": "CinePro is a high-performance, open-source movie and TV show scraper API. Easily integrate media content into your apps with reliable and fast access to streaming links.",
-      "keywords": "CinePro, movie API, tv show API, open-source media scraper, streaming scraper, TMDB, Node.js media API, movie integration, video content API",
-      "robots": "index, follow",
-      "og:title": "CinePro Documentation",
-      "og:type": "website",
-      "og:description": "CinePro is a powerful open-source movie and TV show scraper API designed to provide links to media content available online. Built for performance and ease of use.",
-      "og:image": "/logo/dark.png",
-      "og:url": "https://cinepro.mintlify.app",
-      "twitter:card": "summary_large_image",
-      "twitter:title": "CinePro Documentation",
-      "twitter:description": "Explore CinePro, the open-source media scraper API for movies and TV shows. Fast, reliable, and easy to integrate.",
-      "twitter:image": "/logo/dark.png",
-      "theme-color": "#111827"
-    },
-    "indexing": "navigable"
-  }
 }

@@ -1,0 +1,93 @@
+---
+title: "API Reference"
+description: "CinePro Core exposes a fully OMSS-compliant HTTP API. This reference is auto-generated from the shared OMSS OpenAPI spec and covers every endpoint available on your CinePro Core instance."
+mode: "wide"
+---
+
+<Note>
+  CinePro Core is in **active development**. The API surface follows the
+  [OMSS v1.0 specification](https://github.com/omss-spec/omss-spec) and may
+  evolve as the spec progresses.
+</Note>
+
+## Overview
+
+CinePro Core is built on the [**Open Media Streaming Standard (OMSS)**](https://github.com/omss-spec/omss-spec) — an open specification that defines a common HTTP API contract for media scraping backends. Any client that speaks OMSS works with CinePro Core out of the box, and any other OMSS-compliant backend works as a drop-in replacement for CinePro Core.
+
+The server is bootstrapped via [`@omss/framework`](https://npmjs.com/@omss/framework), which wires together providers, caching, TMDB metadata enrichment, and the proxy layer — CinePro's `server.ts` registers all of this in a single `OMSSServer` instance.
+
+---
+
+## Core Concepts
+
+Understanding these four building blocks will help you read the endpoint reference and understand what CinePro returns.
+
+### Media IDs
+
+Every piece of content in CinePro is identified by its **TMDB ID** — a numeric identifier from [The Movie Database](https://www.themoviedb.org/). You pass this ID to every scraping endpoint. CinePro uses it to look up metadata (title, year, etc.) and to construct queries that providers can resolve into playable links.
+
+For TV shows, a request also requires a **season** and **episode** number alongside the TMDB show ID, since providers resolve individual episodes rather than whole series.
+
+### Providers
+
+A **provider** is a self-contained module inside `src/providers/` that knows how to scrape a specific streaming source. CinePro ships several built-in providers. 
+
+All providers are **auto-discovered** at startup — the OMSS framework scans `./providers/` and registers any valid provider it finds. No manual registration is needed. Each provider implements the OMSS `IProvider` interface, so the framework can call them uniformly regardless of how the underlying source works.
+
+### Sources 
+
+A **source** is what a provider returns: a resolved URL (or set of URLs) pointing to streamable or downloadable media for a requested piece of content. A single API call may return sources from multiple providers simultaneously, each with its own quality, language, and subtitle tracks.
+
+Sources are cached by the OMSS framework to avoid re-scraping on every request:
+- Source results: **1 hour** TTL
+- Subtitle data: **24 hours** TTL
+
+For production deployments, Redis is strongly recommended over the in-memory cache so that source results survive restarts.
+
+### Stream Patterns & Third-Party Proxy Unwrapping
+
+Providers sometimes return URLs that are themselves wrapped by external proxy services — for example, an HLS stream routed through `hlsproxy.example.net` rather than the origin CDN directly. CinePro decouples such URLs and smartly returns the direct URL through the proxy. The framework decodes the captured URL (including nested URL-encoding) and routes your own proxy directly to the origin, giving you full control over headers, caching, and error handling. 
+
+---
+
+## How to Read This Reference
+
+<CardGroup cols="2">
+  <Card title="Auto-generated from OMSS spec" icon="file-code">
+    Every endpoint page in this section is generated directly from the [OMSS v1.0 OpenAPI specification](https://github.com/omss-spec/omss-spec/blob/main/spec/v1.0/omss-v1.0.yml). This means the reference is always in sync with the standard — not hand-written docs that can drift.
+  </Card>
+  <Card title="Interactive playground" icon="play">
+    Each endpoint page includes a live playground. Set your server URL (default: `http://localhost:3000`) and fire real requests directly from the docs. Make sure your CinePro Core instance is running and your `TMDB_API_KEY` is configured.
+  </Card>
+  <Card title="Shared across OMSS backends" icon="link">
+    Because the reference comes from the OMSS spec, it is valid for **any OMSS-compliant backend** — not just CinePro Core. If you run another OMSS server, you can point the playground at it and it will work exactly the same way.
+  </Card>
+  <Card title="Multi-language examples" icon="code">
+    Every endpoint includes auto-generated code examples in JavaScript, cURL, Python, PHP, Go, and Java.
+  </Card>
+</CardGroup>
+
+<Info>
+  The playground's **server URL** defaults to `https://api.example.com`. To test against a deployed instance, update it by clicking on it and change it to `http://localhost:3000`.
+</Info>
+
+---
+
+## Before You Start
+
+Make sure you have:
+
+1. A running CinePro Core instance ([→ Quickstart](/quickstart))
+2. A valid `TMDB_API_KEY` in your `.env` ([→ Environment Variables](/core/configuration/environment))
+3. At least one provider available (all built-in providers are auto-registered on startup)
+
+Then jump straight into the endpoint reference:
+
+<CardGroup cols="2">
+  <Card title="Get Movie Sources" icon="film" href="/core/api-reference/content/get-streaming-sources-for-a-movie">
+    Resolve streaming sources for a movie by TMDB ID
+  </Card>
+  <Card title="Get TV Show Sources" icon="tv" href="/core/api-reference/content/get-streaming-sources-for-a-tv-episode">
+    Resolve streaming sources for a TV episode by show ID, season, and episode
+  </Card>
+</CardGroup>

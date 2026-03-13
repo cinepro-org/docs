@@ -1,0 +1,15 @@
+.nav-logo {
+  width: auto;
+  height: 1.8rem;
+  position: relative;
+  object-fit: contain;
+}
+
+::selection {
+  background: #f5423fb3;
+  color: #000;
+}
+
+#navbar > div.z-10.mx-auto.relative.max-w-8xl.px-0.lg\:px-5 > div > div > div > div.flex-1.flex.items-center.gap-x-4:nth-child(3) {
+  min-width: 180px;
+}

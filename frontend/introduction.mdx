@@ -1,0 +1,65 @@
+---
+title: "Introduction"
+description: "CinePro Frontend is a React-based web interface for browsing and watching movies and TV shows, powered by CinePro Core."
+mode: "wide"
+---
+
+<Warning>
+  CinePro Frontend has not started it's development and is **not production-ready**.
+  As soon as the web app reaches a stable state, these docs will be updated with full guides and references.
+</Warning>
+
+CinePro Frontend is the official web interface for the CinePro ecosystem. Right now it serves as a **developer testing tool** — a simple video player and embed layer on top of [CinePro Core](/introduction) that lets you browse movies and TV shows and watch them directly in the browser via HLS streams.
+
+The long-term goal is a full-featured streaming web app: user accounts, watch progress, continue-watching, and more.
+
+## What it does today
+
+<Columns cols={2}>
+  <Card title="Browse movies & TV shows" icon="film">
+    Search and explore titles powered by TMDB metadata, fetched through CinePro Core.
+  </Card>
+  <Card title="Stream with ArtPlayer & Vidstack" icon="monitor-play">
+    Two embedded player integrations — ArtPlayer and Vidstack — handle HLS stream playback in the browser.
+  </Card>
+  <Card title="Provider & quality picker" icon="sliders-horizontal">
+    Dropdown components let you switch between available providers and select your preferred stream source on the fly.
+  </Card>
+  <Card title="TV show episode navigation" icon="tv-minimal-play">
+    An episodes overlay lets you browse and jump to any season or episode of a TV series.
+  </Card>
+</Columns>
+
+## What's planned
+
+<Info>
+  These are aspirational goals for a future stable release — nothing below is implemented yet.
+</Info>
+
+- **User accounts** — sign up, log in, manage your profile
+- **Watchlist** — save titles to watch later
+- **Watch progress** — resume where you left off, across devices
+- **Recommendations** — discover new content based on what you've watched
+- **Responsive design** — a polished experience on phones, tablets, and desktops
+
+## Tech stack
+
+<Columns cols={3}>
+  <Card title="React + Vite" icon="atom">
+    Built with React and bundled with Vite for fast development and build times.
+  </Card>
+  <Card title="ArtPlayer & Vidstack" icon="clapperboard">
+    Two video player integrations for flexible HLS stream playback.
+  </Card>
+  <Card title="CinePro Core" icon="server-cog" href="/introduction">
+    All media data and stream sources come from a running CinePro Core instance via `VITE_API_URL`.
+  </Card>
+</Columns>
+
+## Relationship to CinePro Core
+
+CinePro Frontend is **not a standalone app** — it requires a running [CinePro Core](/introduction) instance to function. The frontend reads `VITE_API_URL` from its environment and makes all requests to Core for stream sources. 
+
+<Card title="Set up CinePro Core first" icon="server-cog" href="/quickstart">
+  Before running the frontend, make sure you have CinePro Core up and running.
+</Card>
