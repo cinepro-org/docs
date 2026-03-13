@@ -1,0 +1,74 @@
+---
+title: "CineHome"
+description: "Use CineHome to automatically download movies and TV shows to any device running the CineHome Backend — like a NAS, home server, or media PC."
+mode: "wide"
+---
+
+<Warning>
+  CineHome is still in early development. Detailed setup guides and API documentation are coming soon.
+</Warning>
+
+CineHome is a companion service to CinePro Core that lets you **remotely trigger a download** of a movie or TV episode to any device running the CineHome Backend. Think of it as your personal media concierge: you make a request from your phone, and the content lands in the right folder on your home server — ready to play on your Apple TV, Plex, Jellyfin, or any other media client.
+
+## How it works
+
+<Steps>
+  <Step title="You make a request">
+    From any client — a web UI, a phone shortcut, or a custom script — you send a request to the CineHome Backend specifying the title, language, and quality you want.
+  </Step>
+  <Step title="CineHome asks CinePro Core">
+    The CineHome Backend calls your running CinePro Core instance to resolve the media. Core queries TMDB for metadata and then scrapes available providers for a matching stream source.
+  </Step>
+  <Step title="Best source is selected">
+    Core returns a ranked list of sources. CineHome picks the best match for your requested quality and language.
+  </Step>
+  <Step title="Media is downloaded to your device">
+    CineHome downloads the media file directly into a pre-configured folder on the device running the backend — your NAS, home server, Raspberry Pi, etc.
+  </Step>
+  <Step title="Ready to watch">
+    The file is in your folder. Open it in VLC, Infuse, Plex, Jellyfin, or whatever you use — no streaming required.
+  </Step>
+</Steps>
+
+## Real-world example
+
+Imagine you're heading out and you want to watch a movie later on your Apple TV. You run a shortcut on your iPhone, it asks:
+
+- 🎬 **What movie?** → *Interstellar*
+- 🌍 **Language?** → *English*
+- 📺 **Quality?** → *1080p*
+
+Your shortcut sends that request to the CineHome Backend. The backend contacts CinePro Core, finds a matching source, and downloads the file to your `/media/movies` folder (or any other you've defined). When you get home, it's waiting for you.
+
+<Tip>
+  You can use any HTTP client to trigger downloads — iOS Shortcuts, Android Tasker, a cron job, or your own integration. Anything that can send a POST request works.
+</Tip>
+
+## Architecture overview
+
+<Columns cols={3}>
+  <Card title="CinePro Core" icon="server-cog" href="/core/configuration/environment">
+    The OMSS-compliant backend that resolves media sources. CineHome talks to Core to find streams.
+  </Card>
+  <Card title="CineHome Backend" icon="hard-drive-download" href="https://github.com/cinepro-org/CineHome-backend">
+    Runs on your home device. Receives download requests, asks Core for sources, and saves files locally.
+  </Card>
+  <Card title="CineHome Frontend" icon="monitor-smartphone" href="https://github.com/cinepro-org/CineHome-frontend">
+    WIP... Coming soon. Stay tuned : )
+  </Card>
+</Columns>
+
+
+## Compatibility & requirements
+
+_More Coming Soon_
+
+<AccordionGroup>
+  <Accordion title="CinePro Core" defaultOpen="true">
+    CineHome requires a running instance of **CinePro Core**. Point the CineHome Backend's environment config to your Core URL.
+  </Accordion>
+</AccordionGroup>
+
+<Note>
+  Full setup guides, API reference, and configuration options for CineHome are coming soon. Follow the [GitHub discussions](https://github.com/orgs/cinepro-org/discussions) and [Repo Progress](https://github.com/cinepro-org/cinehome-backend/tree/dev) for updates.
+</Note>

@@ -1,0 +1,251 @@
+---
+title: "Providers"
+description: "CinePro Core uses a modular provider system powered by [@omss/framework](https://npmjs.com/@omss/framework). Each provider is a self-contained TypeScript class that implements the OMSS BaseProvider interface."
+---
+
+<Note>
+  CinePro Core is in active development. Providers may be added, updated, or removed at any time. Check the [changelog](https://github.com/cinepro-org/core/releases) for updates.
+</Note>
+
+## Overview
+
+CinePro Core aggregates streaming sources from multiple independent providers. Each provider is a TypeScript class that extends `BaseProvider` from [`@omss/framework`](https://github.com/omss-spec/framework) and declares what content types it supports — movies, TV shows, or both.
+
+The framework handles all the heavy lifting: routing, response formatting, TMDB validation, caching, and proxying. **You only write the source-fetching logic.**
+
+---
+
+## Built-in Providers
+
+CinePro Core ships with the following providers out of the box. All providers live under `src/providers/` and are auto-discovered at startup.
+
+---
+
+## Directory Structure
+
+Each provider lives in its own folder inside `src/providers/`. A typical provider contains a single TypeScript file named after the provider:
+
+<Tree>
+  <Tree.Folder name="src" defaultOpen>
+    <Tree.Folder name="providers" defaultOpen>
+      <Tree.Folder name="vidsrc" defaultOpen>
+        <Tree.File name="vidsrc.ts" />
+      </Tree.Folder>
+      <Tree.Folder name="vidzee" defaultOpen>
+        <Tree.File name="vidzee.ts" />
+      </Tree.Folder>
+      <Tree.Folder name="your-provider" defaultOpen>
+        <Tree.File name="your-provider.ts" />
+      </Tree.Folder>
+    </Tree.Folder>
+  </Tree.Folder>
+</Tree>
+
+---
+
+## Auto-Discovery
+
+CinePro Core uses `@omss/framework`'s built-in auto-discovery feature to register providers automatically at startup. You do **not** need to manually import or register each provider.
+
+In `src/server.ts`, providers are loaded with a single call:
+
+```typescript
+const registry = server.getRegistry();
+await registry.discoverProviders(path.join(__dirname, './providers/'));
+```
+
+The `discoverProviders` method scans the given directory recursively, finds every class that extends `BaseProvider`, instantiates it, and registers it with the server — all without any manual wiring.
+
+<Info>
+  The path passed to `discoverProviders` is resolved relative to the compiled output directory (i.e. `dist/providers/` in production). If you add a new provider folder, no changes to `server.ts` are needed.
+</Info>
+
+---
+
+## Adding a New Provider
+
+<Steps>
+  <Step title="Create the provider folder and file">
+    Create a new directory and TypeScript file under `src/providers/`:
+
+    ```bash
+    mkdir src/providers/my-provider
+    touch src/providers/my-provider/my-provider.ts
+    ```
+  </Step>
+
+  <Step title="Implement BaseProvider">
+    Extend `BaseProvider` from `@omss/framework` and implement the required properties and methods:
+
+    ```typescript
+    import { BaseProvider } from '@omss/framework';
+    import type {
+        ProviderCapabilities,
+        ProviderMediaObject,
+        ProviderResult
+    } from '@omss/framework';
+
+    export class MyProvider extends BaseProvider {
+        // Unique machine-readable identifier
+        readonly id = 'my-provider';
+
+        // Human-readable display name
+        readonly name = 'My Provider';
+
+        // Set to false to disable without removing the file
+        readonly enabled = true;
+
+        readonly BASE_URL = 'https://provider.example.com';
+        readonly HEADERS = {
+            'User-Agent': 'Mozilla/5.0',
+            Referer: 'https://provider.example.com'
+        };
+
+        // Declare what content types this provider handles
+        readonly capabilities: ProviderCapabilities = {
+            supportedContentTypes: ['movies', 'tv']
+        };
+
+        async getMovieSources(media: ProviderMediaObject): Promise<ProviderResult> {
+            try {
+                // Your source-fetching logic here
+                return {
+                    sources: [
+                        {
+                            url: this.createProxyUrl(streamUrl, this.HEADERS),
+                            type: 'hls',
+                            quality: '1080p',
+                            audioTracks: [{ language: 'en', label: 'English' }],
+                            provider: { id: this.id, name: this.name }
+                        }
+                    ],
+                    subtitles: [],
+                    diagnostics: []
+                };
+            } catch (error) {
+                return {
+                    sources: [],
+                    subtitles: [],
+                    diagnostics: [
+                        {
+                            code: 'PROVIDER_ERROR',
+                            message: error instanceof Error ? error.message : 'Unknown error',
+                            field: '',
+                            severity: 'error'
+                        }
+                    ]
+                };
+            }
+        }
+
+        async getTVSources(media: ProviderMediaObject): Promise<ProviderResult> {
+            // Implement TV logic or return an empty result
+            return { sources: [], subtitles: [], diagnostics: [] };
+        }
+
+        // Optional but recommended
+        async healthCheck(): Promise<boolean> {
+            try {
+                const response = await fetch(this.BASE_URL, { method: 'HEAD' });
+                return response.ok;
+            } catch {
+                return false;
+            }
+        }
+    }
+    ```
+  </Step>
+
+  <Step title="Start the server">
+    That's it. No registration or imports needed — `discoverProviders` picks up the new class automatically on the next server start.
+
+    ```bash
+    npm run dev
+    ```
+  </Step>
+</Steps>
+
+### Key Interface Properties
+
+| Property | Type | Required | Description |
+|---|---|---|---|
+| `id` | `string` | ✅ | Unique machine-readable identifier (lowercase, no spaces) |
+| `name` | `string` | ✅ | Human-readable display name |
+| `enabled` | `boolean` | ✅ | Toggle the provider without removing it |
+| `BASE_URL` | `string` | ✅ | Provider's base URL, used as the default `Referer` |
+| `HEADERS` | `object` | ✅ | Default HTTP headers for all requests |
+| `capabilities` | `ProviderCapabilities` | ✅ | Declares supported content types (`movies`, `tv`) |
+| `getMovieSources` | `async method` | ✅ | Returns sources for a given movie |
+| `getTVSources` | `async method` | ✅ | Returns sources for a given TV episode |
+| `healthCheck` | `async method` | Optional | Returns `true` if the provider is reachable |
+
+### ProviderMediaObject Fields
+
+The `media` argument passed to `getMovieSources` and `getTVSources` contains:
+
+| Field | Type | Description |
+|---|---|---|
+| `tmdbId` | `number` | TMDB ID for the title |
+| `type` | `"movie" \| "tv"` | Content type |
+| `s` | `number \| undefined` | Season number (TV only) |
+| `e` | `number \| undefined` | Episode number (TV only) |
+
+---
+
+## Best Practices
+
+<AccordionGroup>
+  <Accordion title="Always use createProxyUrl for stream URLs" icon="shield-check">
+    Never return a raw stream URL directly. Use `this.createProxyUrl(url, headers)` so the framework can forward required headers (e.g. `Referer`, `Origin`) through its built-in proxy. This keeps stream URLs playable from the browser without CORS issues.
+
+    ```typescript
+    url: this.createProxyUrl(streamUrl, this.HEADERS)
+    ```
+  </Accordion>
+
+  <Accordion title="Return diagnostics instead of throwing" icon="triangle-alert">
+    Providers must never throw uncaught exceptions — the framework expects a `ProviderResult` regardless of success or failure. Wrap all logic in `try/catch` and return a `diagnostics` entry on error. This lets the API aggregate results across all providers even if one fails.
+
+    ```typescript
+    catch (error) {
+        return {
+            sources: [],
+            subtitles: [],
+            diagnostics: [{
+                code: 'PROVIDER_ERROR',
+                message: error instanceof Error ? error.message : 'Unknown error',
+                field: '',
+                severity: 'error'
+            }]
+        };
+    }
+    ```
+  </Accordion>
+
+  <Accordion title="Use enabled = false instead of deleting" icon="toggle-left">
+    If you want to temporarily disable a provider, set `readonly enabled = false` rather than deleting the file. This keeps the code in place and makes it trivial to re-enable later.
+  </Accordion>
+
+  <Accordion title="Keep providers stateless" icon="refresh-cw">
+    Provider instances are reused across requests. Do not store per-request state in instance variables. Use local variables inside `getMovieSources` / `getTVSources` for anything request-specific.
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## Further Reading
+
+<CardGroup cols={2}>
+  <Card title="OMSS Framework" icon="book-open" href="https://github.com/omss-spec/framework">
+    Official `@omss/framework` documentation and source code
+  </Card>
+  <Card title="OMSS Spec" icon="scroll" href="https://github.com/omss-spec/omss-spec">
+    The Open Media Streaming Standard specification
+  </Card>
+  <Card title="Provider Example" icon="square-chart-gantt" href="https://github.com/omss-spec/template">
+    Fully annotated reference provider from the framework repo
+  </Card>
+  <Card title="CinePro Core" icon="github" href="https://github.com/cinepro-org/core">
+    Browse the built-in provider implementations
+  </Card>
+</CardGroup>

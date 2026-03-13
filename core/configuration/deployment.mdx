@@ -1,0 +1,262 @@
+---
+title: "Deployment"
+description: "Deploy CinePro Core to production using Node.js, Docker Compose, or a standalone Docker container."
+---
+
+<Warning>
+  CinePro Core is designed for **personal and home use only**. Users are responsible for ensuring compliance with applicable laws and the terms of service of streaming sources. This software does not host, store, or distribute any copyrighted content.
+</Warning>
+
+## Running in Production with Node.js
+
+Before deploying, make sure you have **Node.js 20+** installed and a valid [TMDB API key](https://www.themoviedb.org/settings/api).
+
+### 1. Configure your environment
+
+Copy the example environment file and fill in all required values:
+
+```bash
+cp .env.example .env
+```
+
+For production, your `.env` should look like this:
+
+```env .env
+# Server
+PORT=3000
+HOST=0.0.0.0         # Expose to the network; use 'localhost' if behind a reverse proxy
+NODE_ENV=production
+PUBLIC_URL=https://your-domain.com
+
+# TMDB
+TMDB_API_KEY=your_tmdb_api_key_here
+TMDB_CACHE_TTL=86400  # 24 hours
+
+# Cache — use Redis in production
+CACHE_TYPE=redis
+
+# Redis
+REDIS_HOST=localhost
+REDIS_PORT=6379
+REDIS_PASSWORD=       # Set if your Redis instance requires auth
+```
+
+<Info>
+  Setting `NODE_ENV=production` disables debug logging and enables production-grade error handling. Setting `CACHE_TYPE=redis` is strongly recommended in production — in-memory cache is not shared across processes and is lost on restart.
+</Info>
+
+### 2. Build and start
+
+```bash
+# Compile TypeScript to dist/
+npm run build
+
+# Start the compiled server
+node dist/server.js
+```
+
+<Note>
+  The `npm start` script in `package.json` runs `npm run build && node dist/server.js`, so it rebuilds on every start. For production, prefer pre-building once and running `node dist/server.js` directly to avoid unnecessary rebuild overhead.
+</Note>
+
+### 3. Logging
+
+When `NODE_ENV=production`, the server keeps the console clean — verbose debug output is suppressed. The OMSS framework logs startup info (host, port, registered providers) and critical errors. Standard output streams (`stdout` / `stderr`) are suitable for capture by any log aggregator such as `pm2 logs`, `journald`, or a cloud logging sink.
+
+For persistence and rotation, pipe output to a process manager or system service:
+
+```bash
+# Example with pm2
+npm install -g pm2
+pm2 start dist/server.js --name cinepro-core
+pm2 save
+pm2 startup
+```
+
+### 4. Redis
+
+In production, CinePro Core uses Redis to cache scraped sources (TTL: 1 hour) and subtitles (TTL: 24 hours). Run Redis locally or point `REDIS_HOST` to a remote instance. A minimal Redis setup:
+
+```bash
+docker run -d --name redis -p 6379:6379 redis:7-alpine
+```
+
+---
+
+## Docker Compose (with Redis)
+
+The included `compose.yml` starts both CinePro Core and a Redis instance on a shared internal network. This is the recommended way to run locally or on a home server.
+
+### Required `.env` fields
+
+The Compose file reads `TMDB_API_KEY` from your shell environment or a `.env` file in the same directory:
+
+```env .env
+TMDB_API_KEY=your_tmdb_api_key_here
+```
+
+All other values are hardcoded in `compose.yml` with sensible defaults:
+
+| Variable         | Value in compose.yml       | Notes                               |
+|------------------|----------------------------|-------------------------------------|
+| `HOST`           | `0.0.0.0`                  | Binds to all interfaces inside the container |
+| `PORT`           | `3000`                     | Also the exposed host port          |
+| `NODE_ENV`       | `production`               | Disables debug logging              |
+| `TMDB_CACHE_TTL` | `86400`                    | 24 h metadata cache                 |
+| `CACHE_TYPE`     | `redis`                    | Uses the bundled Redis service      |
+| `REDIS_HOST`     | `redis`                    | Internal Docker network hostname    |
+| `REDIS_PORT`     | `6379`                     | Standard Redis port                 |
+
+### Starting the stack
+
+```bash
+# Create .env with your TMDB key first
+cp .env.example .env
+
+# Start in the background
+docker compose up -d
+
+# Verify both containers are running
+docker compose ps
+```
+
+The API is now reachable at `http://localhost:3000`.
+
+### Exposed ports
+
+| Service         | Container port | Host port | Description              |
+|-----------------|---------------|-----------|--------------------------|
+| `cinepro-core`  | 3000          | 3000      | HTTP API                 |
+| `redis`         | 6379          | 6379      | Redis (internal use)     |
+
+<Tip>
+  If you're putting CinePro Core behind a reverse proxy, you can remove the `ports` mapping for `redis` to avoid exposing it on the host — the two containers communicate over the internal `omss-network` bridge regardless.
+</Tip>
+
+### Restarting and scaling
+
+```bash
+# Restart only the core service (e.g. after a config change)
+docker compose restart cinepro-core
+
+# Pull a fresh build and redeploy without downtime
+docker compose up -d --build cinepro-core
+
+# Stop the entire stack
+docker compose down
+
+# Stop and delete the Redis volume (clears all cached data)
+docker compose down -v
+```
+
+<Warning>
+  `docker compose down -v` permanently deletes the `redis-data` volume and all cached data. Only do this if you want a clean slate.
+</Warning>
+
+Both services are configured with `restart: unless-stopped`, so they automatically restart after a host reboot or container crash without any extra tooling.
+
+---
+
+## Standalone Docker Image
+
+Use this approach if you want to manage the container lifecycle yourself or integrate CinePro Core into an existing container platform (Portainer, Unraid, Synology, etc.).
+
+### Build the image
+
+```bash
+docker build -t cinepro-core:latest .
+```
+### Example: in-memory cache (quick test)
+
+```bash
+docker run -d \
+  --name cinepro-core \
+  -p 3000:3000 \
+  -e TMDB_API_KEY=your_tmdb_api_key_here \
+  -e CACHE_TYPE=memory \
+  cinepro-core:latest
+```
+
+<Note>
+  In-memory cache is lost every time the container restarts. Use Redis for anything beyond local testing.
+</Note>
+
+### Example: with external Redis
+
+```bash
+docker run -d \
+  --name cinepro-core \
+  -p 3000:3000 \
+  -e TMDB_API_KEY=your_tmdb_api_key_here \
+  -e CACHE_TYPE=redis \
+  -e REDIS_HOST=your-redis-host \
+  -e REDIS_PORT=6379 \
+  -e REDIS_PASSWORD=your_redis_password \
+  cinepro-core:latest
+```
+
+### Example: custom port
+
+```bash
+docker run -d \
+  --name cinepro-core \
+  -p 8080:8080 \
+  -e PORT=8080 \
+  -e TMDB_API_KEY=your_tmdb_api_key_here \
+  -e CACHE_TYPE=redis \
+  -e REDIS_HOST=your-redis-host \
+  cinepro-core:latest
+```
+
+<Info>
+  The `PORT` env var must match the container-side port in `-p HOST_PORT:CONTAINER_PORT`. Both sides must be the same unless you intentionally remap them.
+</Info>
+
+---
+
+## Reverse Proxy & TLS
+
+CinePro Core speaks plain HTTP. For production, you should put it behind a reverse proxy that terminates TLS, handles certificates, and optionally adds rate limiting or authentication.
+
+<Tip>
+  **Recommended setup:** CinePro Core on `localhost:3000` (bound to `HOST=localhost`) → reverse proxy → public HTTPS endpoint. This way the API is never directly exposed to the internet.
+</Tip>
+
+### NGINX (minimal config sketch)
+
+```nginx
+server {
+    listen 443 ssl http2;
+    server_name api.your-domain.com;
+
+    ssl_certificate     /etc/letsencrypt/live/api.your-domain.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/api.your-domain.com/privkey.pem;
+
+    location / {
+        proxy_pass         http://localhost:3000;
+        proxy_http_version 1.1;
+        proxy_set_header   Host              $host;
+        proxy_set_header   X-Real-IP         $remote_addr;
+        proxy_set_header   X-Forwarded-For   $proxy_add_x_forwarded_for;
+        proxy_set_header   X-Forwarded-Proto $scheme;
+    }
+}
+```
+
+Use [Certbot](https://certbot.eff.org/) to obtain and auto-renew Let's Encrypt certificates.
+
+### Caddy (automatic TLS)
+
+Caddy automatically provisions and renews TLS certificates from Let's Encrypt — no manual certificate management needed.
+
+```caddyfile Caddyfile
+api.your-domain.com {
+    reverse_proxy localhost:3000
+}
+```
+
+That's it. Run `caddy run` and Caddy handles HTTPS automatically.
+
+<Warning>
+  Set `HOST=localhost` in your `.env` when using a reverse proxy so CinePro Core does not bind directly to a public interface. Set `PUBLIC_URL` to your full public HTTPS URL (e.g. `https://api.your-domain.com`) so the OMSS framework generates correct absolute URLs in API responses.
+</Warning>

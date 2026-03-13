@@ -1,35 +1,130 @@
 ---
 title: "Introduction"
-description: "Welcome to the **CinePro Backend** documentation! This project is an open-source movie and TV show scraper API designed to provide links to media content available on the internet."
+description: "Welcome to the CinePro Core documentation. CinePro Core is an [OMSS‑compliant](https://github.com/omss-spec/omss-spec) streaming backend that powers the CinePro ecosystem."
 mode: "wide"
 ---
 
 <Note>
-  ⚠️This project is still in development.⚠️\
-   Some features may not be fully implemented and are subject to change. [Read more about the development process](./in-dev).
+
+  CinePro Core is currently in active development and considered **alpha** software.  
+  Expect breaking changes and incomplete features as the OMSS‑compliant TypeScript backend evolves.
+
 </Note>
 
-<Card title="License & Terms" icon="shield">
-  This project is for **personal and non-commercial use ONLY**. Selling this project or adding tracking/advertisements is strictly prohibited. For more details, refer to the [License](/general-information/license.mdx) section. By using this project, you agree to the terms outlined in the license.
-</Card>
+## What is CinePro Core?
 
-## Features
+CinePro Core is the foundational backend service of the CinePro ecosystem, built in TypeScript on top of the Open Media Streaming Standard (OMSS) for movies and TV shows.  
+It acts as a unified scraping and streaming engine that aggregates multiple third‑party providers into a single, consistent API.
 
-<CardGroup cols="2">
-  <Card title="Open Source" icon="code-branch">
-    Fully open-source and free to use
+<CardGroup cols={2}>
+
+  <Card title="OMSS‑compliant backend" icon="server-cog">
+
+    CinePro Core follows the OMSS specification to provide a predictable, strongly‑typed interface for discovering and streaming movies and TV shows.
+
   </Card>
-  <Card title="No Ads or Tracking" icon="ban">
-    Completely free of ads and tracking
+
+  <Card title="Ecosystem backbone" icon="layers">
+
+    Core powers the broader CinePro ecosystem, including experimental frontends and CineHome, by exposing a shared HTTP API and data model.
+
   </Card>
-  <Card title="Supported Media Types" icon="film">
-    Movies and TV shows from [The Movie Database](https://www.themoviedb.org/)
-  </Card>
-  <Card title="Sources" icon="globe">
-    Scrapes links from various independent sources.
-  </Card>
+
 </CardGroup>
 
+## Key features
+
+<CardGroup cols={2}>
+
+  <Card title="Modular providers" icon="plug">
+
+    Add and maintain multiple streaming providers behind a single API.  
+    Providers live in the [`src/providers`](https://github.com/cinepro-org/core/tree/main/src/providers) directory and can be extended without changing the core server.
+
+  </Card>
+
+  <Card title="Type‑safe architecture" icon="braces">
+
+    Implemented fully in TypeScript with strict typing, giving you safer refactors, clearer contracts, and better editor tooling.
+
+  </Card>
+
+  <Card title="Caching & performance" icon="gauge">
+
+    Designed for production‑grade performance with support for in‑memory caching and Redis‑backed caching in containerized deployments.
+
+  </Card>
+
+  <Card title="Docker‑ready deployment" icon="docker">
+
+    Ship CinePro Core with Docker or Docker Compose, including optional Redis, using the provided [`Dockerfile`](https://github.com/cinepro-org/core/blob/main/Dockerfile) and compose configuration.
+
+  </Card>
+
+  <Card title="Multi‑source media" icon="film">
+
+    Fetch movie and TV show sources from multiple third‑party providers through a single OMSS‑style API, instead of integrating each site separately.
+
+  </Card>
+
+  <Card title="CineHome integration" icon="hard-drive">
+
+    Integrates with the CineHome services to automate downloading and organizing media to your own storage (such as a NAS or home server).
+
+  </Card>
+
+</CardGroup>
+
+## Intended use
+
+<Info>
+
+  CinePro Core is intended for **personal, home, and educational use only**.  
+  It is not designed or supported for commercial or large‑scale streaming deployments.
+
+</Info>
+
+- Run CinePro Core on your own hardware (for example, a home server or NAS).  
+- Treat the codebase as a starting point for your own experiments and custom scrapers.
+
 <Warning>
-  This project is for educational purposes only. It does not host or upload any media files. 
+
+  **Do not use CinePro Core as a commercial streaming platform or a hosted content service.**  
+  The maintainers do not provide SLAs, scaling guarantees, or legal guidance for production‑grade usage. **It is not secure for public hosting by default.**
+
 </Warning>
+
+## Legal and content responsibilities
+
+<Card title="CinePro does not host content" horizontal icon="shield-check">
+
+  CinePro Core does **not** host, upload, or store any video files.  
+  It only discovers and aggregates links that are already publicly available on third‑party sites.
+
+</Card>
+
+- You are solely responsible for how you use CinePro Core and which providers you enable.  
+- Ensure that your usage complies with all applicable laws and regulations in your jurisdiction.
+
+<Danger>
+  **Nothing in this documentation constitutes legal advice.**
+  If you are unsure whether your use of CinePro Core is lawful, consult a qualified legal professional before proceeding.
+</Danger>
+
+## Next steps
+
+<CardGroup cols={2}>
+
+  <Card title="Get started quickly" icon="rocket" href="/quickstart">
+
+    Install dependencies, configure your TMDB API key, and run CinePro Core locally in a few minutes.
+
+  </Card>
+
+  <Card title="Explore the API" icon="square-terminal" href="/core/api-reference/introduction">
+
+    Learn how the OMSS‑style HTTP API is structured and how to fetch movie and TV show sources programmatically.
+
+  </Card>
+
+</CardGroup>
