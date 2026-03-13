@@ -135,7 +135,7 @@
             "anchors": [
                 {
                     "anchor": "GitHub",
-                    "href": "https://github.com/cinepro-org/core",
+                    "href": "https://github.com/cinepro-org",
                     "icon": "github"
                 },
                 {
@@ -211,12 +211,12 @@
             "og:title": "CinePro Documentation",
             "og:type": "website",
             "og:description": "CinePro is a powerful open-source movie and TV show scraper API designed to provide links to media content available online. Built for performance and ease of use.",
-            "og:image": "/assets/logo/dark.png",
+            "og:image": "/assets/logo/light.png",
             "og:url": "https://cinepro.mintlify.app",
             "twitter:card": "summary_large_image",
             "twitter:title": "CinePro Documentation",
             "twitter:description": "Explore CinePro, the open-source media scraper API for movies and TV shows. Fast, reliable, and easy to integrate.",
-            "twitter:image": "/assets/logo/dark.png",
+            "twitter:image": "/assets/logo/light.png",
             "theme-color": "#111827"
         },
         "indexing": "navigable"
