@@ -4,7 +4,27 @@ description: 'Change log for CinePro.'
 mode: 'wide'
 ---
 
-<Update label="Development" description="v0.0.1-beta" description="CinePro is still in development">
+<Update label="April 18, 2026" description="v1.0.0" tags={["Feature", "Update", "Fix"]}>
+  ## New features
+
+  - **StreamMafia provider** — A new streaming provider has been added to CinePro Core, expanding the pool of available sources. It is currently disabled while upstream compatibility is being finalized, but will be enabled in a future release.
+
+  ## Updates
+
+  - **Faster VidZee scraping** — The VidZee provider now decrypts all streaming sources in parallel across all servers, significantly reducing response times for movie and TV lookups.
+  - **Improved VixSrc provider** — VixSrc now uses a dedicated API for source resolution instead of HTML scraping, making it more reliable and resilient to upstream changes.
+  - **License change** — CinePro Core has moved from MIT to the [PolyForm Noncommercial License 1.0.0](/core/general-information/license). You can still use, fork, and modify CinePro freely for personal and non-commercial purposes.
+  - **OMSS framework updates** — The underlying `@omss/framework` has been updated across several releases, bringing improved stream handling and proxy pattern support.
+
+  ## Bug fixes
+
+  - **VidRock streaming** — Fixed an issue where VidRock sources could return unplayable links due to incorrect header construction.
+  - **02MovieDownloader** — Resolved a bug affecting download source resolution for certain titles.
+  - **VidZee decryption** — Fixed edge cases in the VidZee decryption pipeline that could cause some sources to fail silently.
+  - **Disabled inactive providers** — The 2Embed and Icefy providers have been removed after becoming unreachable due to Cloudflare restrictions. This prevents unnecessary timeouts during source lookups.
+</Update>
+
+<Update label="Development" description="v0.0.1-beta">
     <Card title="Improvements" icon="arrow-up" horizontal>
         <ul>
             <li>Improved error handling and debugging.</li>
