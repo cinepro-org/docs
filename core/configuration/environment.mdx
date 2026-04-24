@@ -63,6 +63,22 @@ PUBLIC_URL=https://api.example.com
   </Warning>
 </ParamField>
 
+<ParamField path="STREMIO_ADDON" type="boolean" default="false">
+  When set to `true`, CinePro exposes a native Stremio addon manifest at `/stremio/manifest.json`, allowing CinePro to be added as a Stremio source. Opt in by setting `STREMIO_ADDON=true` in your `.env`.
+
+  Two community addons (WebStreamerMBG and Streamify) are pre-wired by default.
+</ParamField>
+
+<ParamField path="CORS_ORIGIN" type="string">
+  Optional. Restricts which origins may call the CinePro API. Provide a single origin (for example `https://example.com`) to restrict access, or leave empty to allow all origins (legacy behavior).
+
+```bash .env
+CORS_ORIGIN=https://example.com
+```
+
+  Use this variable when the API is exposed publicly and you need to limit cross-origin requests.
+</ParamField>
+
 <ParamField path="NODE_ENV" type="string" default="development">
   Controls the runtime mode.
 

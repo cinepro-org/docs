@@ -36,6 +36,13 @@ It acts as a unified scraping and streaming engine that aggregates multiple thir
 
 <CardGroup cols={2}>
 
+
+  <Card title="Docker‑ready deployment" icon="docker">
+
+    Ship CinePro Core as a container. Official multi‑architecture images are published to GitHub Container Registry (ghcr.io/cinepro-org/core); pull with `docker pull ghcr.io/cinepro-org/core:latest` (linux/amd64 and linux/arm64 supported), or build locally using the included [`Dockerfile`](https://github.com/cinepro-org/core/blob/main/Dockerfile). Use Docker Compose with the official image (optional Redis).
+
+  </Card>
+
   <Card title="Modular providers" icon="plug">
 
     Add and maintain multiple streaming providers behind a single API.  
@@ -43,21 +50,15 @@ It acts as a unified scraping and streaming engine that aggregates multiple thir
 
   </Card>
 
-  <Card title="Type‑safe architecture" icon="braces">
+    <Card title="Stremio addon support" icon="puzzle">
 
-    Implemented fully in TypeScript with strict typing, giving you safer refactors, clearer contracts, and better editor tooling.
+    CinePro can expose a native Stremio addon manifest at `/stremio/manifest.json`. Enable it by setting `STREMIO_ADDON=true` in your environment. Two community addons (WebStreamerMBG and Streamify) are pre-wired, and additional Stremio addons can be added directly into Core.
 
   </Card>
 
   <Card title="Caching & performance" icon="gauge">
 
     Designed for production‑grade performance with support for in‑memory caching and Redis‑backed caching in containerized deployments.
-
-  </Card>
-
-  <Card title="Docker‑ready deployment" icon="docker">
-
-    Ship CinePro Core with Docker or Docker Compose, including optional Redis, using the provided [`Dockerfile`](https://github.com/cinepro-org/core/blob/main/Dockerfile) and compose configuration.
 
   </Card>
 

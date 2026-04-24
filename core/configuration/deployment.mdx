@@ -27,6 +27,8 @@ PORT=3000
 HOST=0.0.0.0         # Expose to the network; use 'localhost' if behind a reverse proxy
 NODE_ENV=production
 PUBLIC_URL=https://your-domain.com
+CORS_ORIGIN=https://your-frontend.com  # Optional: restrict API access to specific origins
+STREMIO_ADDON=true  # Optional: enable Stremio addon endpoint at /stremio/manifest.json
 
 # TMDB
 TMDB_API_KEY=your_tmdb_api_key_here
@@ -86,6 +88,27 @@ docker run -d --name redis -p 6379:6379 redis:7-alpine
 ## Docker Compose (with Redis)
 
 The included `compose.yml` starts both CinePro Core and a Redis instance on a shared internal network. This is the recommended way to run locally or on a home server.
+
+Official multi-architecture images are published to the GitHub Container Registry: https://github.com/cinepro-org/core/pkgs/container/core. Use the official image in Docker Compose by setting the service image to `ghcr.io/cinepro-org/core:latest` (or run `docker compose pull` before `up` to fetch the latest remote image). Both linux/amd64 and linux/arm64 platforms are supported.
+
+Example (compose service snippet):
+
+```yaml
+services:
+  cinepro-core:
+    image: ghcr.io/cinepro-org/core:latest
+    # optional: request a specific platform if your host requires it
+    # platform: linux/amd64
+    ports:
+      - "3000:3000"
+    environment:
+      - TMDB_API_KEY=${TMDB_API_KEY}
+      - CACHE_TYPE=redis
+      # enable the Stremio addon from the container
+      - STREMIO_ADDON=true
+    depends_on:
+      - redis
+```
 
 ### Required `.env` fields
 
@@ -160,6 +183,19 @@ Both services are configured with `restart: unless-stopped`, so they automatical
 ## Standalone Docker Image
 
 Use this approach if you want to manage the container lifecycle yourself or integrate CinePro Core into an existing container platform (Portainer, Unraid, Synology, etc.).
+
+Official multi-architecture images are published to the GitHub Container Registry: https://github.com/cinepro-org/core/pkgs/container/core. Pull the latest official image with:
+
+```bash
+# default latest
+docker pull ghcr.io/cinepro-org/core:latest
+
+# explicit platforms (linux/amd64 and linux/arm64 supported)
+docker pull --platform linux/amd64 ghcr.io/cinepro-org/core:latest
+docker pull --platform linux/arm64 ghcr.io/cinepro-org/core:latest
+```
+
+When running the official image, pass required environment variables (TMDB_API_KEY, CACHE_TYPE, etc.) and enable the Stremio addon if desired with `-e STREMIO_ADDON=true`.
 
 ### Build the image
 
