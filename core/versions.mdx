@@ -1,6 +1,6 @@
 ---
 title: 'Changelog'
-description: 'Change log for CinePro.'
+description: 'Change log for **CinePro/Core**.'
 mode: 'wide'
 ---
 
@@ -22,7 +22,7 @@ mode: 'wide'
   - **Cleaner stream pattern matching** — Internal URL patterns used to recognize streaming hosts have been consolidated and properly escaped, reducing edge-case mismatches during playback.
 </Update>
 
-<Update label="April 18, 2026" description="v1.0.0" tags={["Feature", "Update", "Fix"]}>
+<Update label="April 18, 2026" tags={["Feature", "Update", "Fix"]}>
   ## New features
 
   - **StreamMafia provider** — A new streaming provider has been added to CinePro Core, expanding the pool of available sources. It is currently disabled while upstream compatibility is being finalized, but will be enabled in a future release.
@@ -42,13 +42,3 @@ mode: 'wide'
   - **Disabled inactive providers** — The 2Embed and Icefy providers have been removed after becoming unreachable due to Cloudflare restrictions. This prevents unnecessary timeouts during source lookups.
 </Update>
 
-<Update label="Development" description="v0.0.1-beta">
-    <Card title="Improvements" icon="arrow-up" horizontal>
-        <ul>
-            <li>Improved error handling and debugging.</li>
-            <li>Optimized scraping performance.</li>
-            <li>Improved documentation for API endpoints.</li>
-            <li>Added support for new providers.</li>
-        </ul>
-    </Card>
-</Update>

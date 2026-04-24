@@ -87,6 +87,17 @@
                                         "pages": ["core/api-reference/refresh/refresh-cached-sources"]
                                     }
                                 ]
+                            },
+                            {
+                                "tab": "Changelog",
+                                "icon": "history",
+                                "groups": [
+                                    {
+                                        "group": "Versions",
+                                        "icon": "tag",
+                                        "pages": ["core/versions"]
+                                    }
+                                ]
                             }
                         ]
                     }
