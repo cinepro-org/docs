@@ -4,6 +4,24 @@ description: 'Change log for CinePro.'
 mode: 'wide'
 ---
 
+<Update label="April 24, 2026" tags={["Feature", "Update", "Fix"]}>
+  ## New features
+
+  - **Stremio addon support** — CinePro Core can now expose a native Stremio addon endpoint at `/stremio/manifest.json`, letting you plug CinePro directly into Stremio. Opt in by setting `STREMIO_ADDON=true` in your [environment](/core/configuration/environment). Two community addons (WebStreamerMBG and Streamify) are pre-wired out of the box.
+  - **Automated Docker images** — Official container images are now built and published automatically to the GitHub Container Registry on every release, making [Docker deployments](/core/configuration/deployment) simpler and more reliable.
+
+  ## Updates
+
+  - **Icefy provider is back** — Icefy has been rewritten to use its new public API and is enabled by default again, restoring another source for movie and TV lookups.
+  - **Configurable CORS origin** — A new `CORS_ORIGIN` [environment variable](/core/configuration/environment) lets you restrict which origins can call the CinePro API, instead of always allowing all origins.
+  - **OMSS framework v1.1.19** — The underlying `@omss/framework` has been updated, bringing further stability improvements to stream handling.
+
+  ## Bug fixes
+
+  - **Uembed sunset** — The Uembed provider has been disabled after its upstream service was shut down, preventing failed lookups and timeouts.
+  - **Cleaner stream pattern matching** — Internal URL patterns used to recognize streaming hosts have been consolidated and properly escaped, reducing edge-case mismatches during playback.
+</Update>
+
 <Update label="April 18, 2026" description="v1.0.0" tags={["Feature", "Update", "Fix"]}>
   ## New features
 
