@@ -17,7 +17,24 @@ The framework handles all the heavy lifting: routing, response formatting, TMDB 
 
 ## Built-in Providers
 
-CinePro Core ships with the following providers out of the box. All providers live under `src/providers/` and are auto-discovered at startup.
+CinePro Core ships with the following providers out of the box. All providers live under `src/providers/` and are auto-discovered at startup. Providers can be toggled individually via the `enabled` flag in their source file without removing the folder.
+
+| Provider | ID | Movies | TV | Default |
+|---|---|---|---|---|
+| VidSrc | `vidsrc` | ✅ | ✅ | Enabled |
+| VidZee | `vidzee` | ✅ | ✅ | Enabled |
+| VidRock | `vidrock` | ✅ | ✅ | Enabled |
+| VixSrc | `vixsrc` | ✅ | ✅ | Enabled |
+| RgShows | `RgShows` | ✅ | ✅ | Enabled |
+| Icefy | `Icefy` | ✅ | ✅ | Enabled |
+| MafiaEmbed (StreamMafia) | `streammafia` | ✅ | ✅ | Enabled |
+| 02MovieDownloader | `02moviedownloader` | ✅ | ✅ | Enabled |
+| Fmovies4U | `fmovies4u` | ✅ | ✅ | Disabled |
+| Uembed | `uembed` | ✅ | ✅ | Disabled |
+
+<Info>
+  Disabled providers ship with the codebase but do not run at startup. They are kept in place for future re-enablement once upstream compatibility is restored — see the [changelog](/core/versions) for the latest status.
+</Info>
 
 ---
 
