@@ -1,8 +1,8 @@
 # CinePro Docs
 
-This repository contains the source code for the [CinePro Documentation website](https://cinepro.mintlify.app/).
+This repository contains the source code for the [CinePro Documentation website](https://docs.cinepro.cc/).
 
-[Read the documentation](https://cinepro.mintlify.app/)
+[Read the documentation](https://docs.cinepro.cc/)
 
 ## License
 
