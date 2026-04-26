@@ -4,6 +4,16 @@ description: 'Change log for **CinePro/Core**.'
 mode: 'wide'
 ---
 
+<Update label="April 26, 2026" tags={["Update", "Fix"]}>
+  ## Updates
+
+  - **Automated GitHub Releases** — Every push to `main` now triggers an automated release with categorized notes and multi-architecture (`amd64` / `arm64`) Docker images published to the GitHub Container Registry. Pin a specific version in your [Docker deployment](/core/configuration/deployment) instead of always tracking `latest`.
+
+  ## Bug fixes
+
+  - **VidRock streaming restored** — Fixed a regression where the `crypto` module failed to load in some runtimes, causing VidRock source resolution to throw at startup. VidRock lookups are working again out of the box.
+</Update>
+
 <Update label="April 24, 2026" tags={["Feature", "Update", "Fix"]}>
   ## New features
 
