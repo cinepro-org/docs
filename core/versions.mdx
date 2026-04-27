@@ -4,6 +4,17 @@ description: 'Change log for **CinePro/Core**.'
 mode: 'wide'
 ---
 
+<Update label="April 27, 2026" tags={["Feature", "Update"]}>
+  ## New features
+
+  - **Popr provider** — A new built-in [streaming provider](/core/configuration/providers), Popr, has been added and is enabled by default. It expands the pool of available sources for both movies and TV shows, with subtitles supported out of the box.
+  - **Optional MCP support** — CinePro Core now ships with optional MCP (Model Context Protocol) support so you can plug it directly into your AI agents. Opt in by setting `MCP_ENABLED=true` in your [environment](/core/configuration/environment).
+
+  ## Updates
+
+  - **Richer Docker image metadata** — Official container images on the GitHub Container Registry now carry standard OCI labels (version, revision, build date, source URL), making it easier to inspect and audit the image you're running in your [Docker deployment](/core/configuration/deployment).
+</Update>
+
 <Update label="April 26, 2026" tags={["Update", "Fix"]}>
   ## Updates
 
