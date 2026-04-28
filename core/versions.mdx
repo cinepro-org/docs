@@ -4,6 +4,18 @@ description: 'Change log for **CinePro/Core**.'
 mode: 'wide'
 ---
 
+<Update label="April 28, 2026" tags={["Update", "Fix"]}>
+  ## Updates
+
+  - **StreamMafia provider re-enabled** — The MafiaEmbed (StreamMafia) provider has been rewritten against its new upstream API and is now enabled by default, contributing additional sources to every movie and TV lookup. See the full [provider lineup](/core/configuration/providers).
+  - **Uembed fully removed** — The previously disabled Uembed provider has been removed entirely after its upstream service was permanently shut down, trimming dead code and avoiding any chance of stray lookups.
+
+  ## Bug fixes
+
+  - **More reliable provider requests** — Several providers (StreamMafia, Popr, Icefy, VidRock, VidZee, VixSrc, FMovies4U, RGShows, 02MovieDownloader) have been hardened with a unified HTTP client, reducing transient request failures during source resolution.
+  - **Expanded stream host recognition** — Added `hlmv.tripplestream.online` to the list of recognized streaming hosts so its links are proxied correctly during playback.
+</Update>
+
 <Update label="April 27, 2026" tags={["Feature", "Update"]}>
   ## New features
 
