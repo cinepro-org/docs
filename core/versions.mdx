@@ -4,6 +4,18 @@ description: 'Change log for **CinePro/Core**.'
 mode: 'wide'
 ---
 
+<Update label="April 28, 2026" tags={["Update", "Fix"]}>
+  ## Updates
+
+  - **StreamMafia overhaul** — The `streammafia` provider has been rewritten to use the new `sf.streammafia.to` API, including session-cookie handshake, short-lived API token negotiation, and a randomized desktop user agent on every request. All alternate audio tracks (`switches`) are now resolved in parallel and merged into the result, so multi-language titles return every available dub instead of just the selected stream. Stream URLs are deduplicated before being returned.
+  - **Uembed fully removed** — The previously-disabled `uembed` provider has been deleted from the codebase now that its upstream service is permanently offline. The [provider list](/core/configuration/providers) has been trimmed accordingly.
+  - **Leaner runtime** — `axios` has been dropped as a dependency in favor of the built-in `fetch` API across all providers, reducing install size and cold-start time.
+
+  ## Bug fixes
+
+  - **More reliable stream pattern matching** — Added the `hlmv.tripplestream.online` host to the recognized streaming-pattern list so links from that CDN are properly proxied during playback.
+</Update>
+
 <Update label="April 27, 2026" tags={["Feature", "Update"]}>
   ## New features
 
