@@ -7,8 +7,13 @@ mode: 'wide'
 <Update label="April 27, 2026" tags={["Feature", "Update"]}>
   ## New features
 
-  - **Popr provider** — A new built-in [streaming provider](/core/configuration/providers), Popr, has been added and is enabled by default. It expands the pool of available sources for both movies and TV shows, with subtitles supported out of the box.
-  - **Optional MCP support** — CinePro Core now ships with optional MCP (Model Context Protocol) support so you can plug it directly into your AI agents. Opt in by setting `MCP_ENABLED=true` in your [environment](/core/configuration/environment).
+  - **MCP support for AI agents** — CinePro Core can now expose a [Model Context Protocol](https://modelcontextprotocol.io) server, letting AI agents query stream sources directly. Opt in by setting `MCP_ENABLED=true` in your [environment](/core/configuration/environment).
+  - **Popr provider** — A new `popr` provider has been added to the [provider lineup](/core/configuration/providers) and is enabled by default. It fans out across multiple Popr/Vidnest backends in parallel, deduplicates subtitles, and now contributes additional sources to every movie and TV lookup.
+  - **Audio track metadata** — Sources now carry per-language audio track labels, making it easier for clients to surface the right dub or original-language stream.
+
+  ## Updates
+
+  - **Automated release workflow polish** — Docker image labelling and the automated release pipeline have been tidied up so each release ships with cleaner metadata for the multi-architecture images on the GitHub Container Registry.
 
   ## Updates
 

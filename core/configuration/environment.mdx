@@ -69,6 +69,18 @@ PUBLIC_URL=https://api.example.com
   Two community addons (WebStreamerMBG and Streamify) are pre-wired by default.
 </ParamField>
 
+<ParamField path="MCP_ENABLED" type="boolean" default="false">
+  When set to `true`, CinePro Core exposes a [Model Context Protocol](https://modelcontextprotocol.io) server, letting AI agents and MCP-compatible clients query CinePro for movie and TV stream sources directly. Opt in by setting `MCP_ENABLED=true` in your `.env`.
+
+  ```bash .env
+  MCP_ENABLED=true
+  ```
+
+  <Info>
+    MCP support is provided by the underlying [`@omss/framework`](https://github.com/omss-spec/framework). Leave it disabled if you don't plan to connect AI agents to your CinePro instance — there is no benefit to enabling it for a regular HTTP API workload.
+  </Info>
+</ParamField>
+
 <ParamField path="CORS_ORIGIN" type="string">
   Optional. Restricts which origins may call the CinePro API. Provide a single origin (for example `https://example.com`) to restrict access, or leave empty to allow all origins (legacy behavior).
 
@@ -223,6 +235,10 @@ PORT=8080
 HOST=0.0.0.0
 NODE_ENV=production
 PUBLIC_URL=https://api.example.com
+
+# Optional integrations
+STREMIO_ADDON=false
+MCP_ENABLED=false
 
 # TMDB
 TMDB_API_KEY=your_tmdb_api_key_here
