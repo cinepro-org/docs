@@ -4,6 +4,19 @@ description: 'Change log for **CinePro/Core**.'
 mode: 'wide'
 ---
 
+<Update label="April 29, 2026" tags={["Feature", "Update"]}>
+  ## New features
+
+  - **Peachify provider** — A new `Peachify` provider has been added to the [provider lineup](/core/configuration/providers) and is enabled by default, contributing additional movie and TV sources to every lookup.
+  - **CineSu provider** — A new `CineSu` provider has been added and is enabled by default, broadening the pool of available streams.
+  - **VidNest provider** — A new `vidnest` provider has been added and is enabled by default. It fans out across multiple VidNest backends (MovieBox, AllMovies, HollyMovieHD, and more) in parallel, so a single lookup returns sources from every supported backend at once.
+
+  ## Updates
+
+  - **Clearer Icefy errors** — When Icefy is blocked by Cloudflare, the API now returns a descriptive error message explaining how to unblock it locally instead of failing silently.
+  - **SHA-based Docker tags** — Released Docker images on the GitHub Container Registry are now tagged with the short commit SHA (for example, `main-1a2b3c4`) instead of a date-and-run-number combination, making it easier to map a running container back to the exact source commit in your [Docker deployment](/core/configuration/deployment).
+</Update>
+
 <Update label="April 28, 2026" tags={["Update", "Fix"]}>
   ## Updates
 
