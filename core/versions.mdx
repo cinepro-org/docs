@@ -4,6 +4,13 @@ description: 'Change log for **CinePro/Core**.'
 mode: 'wide'
 ---
 
+<Update label="April 29, 2026" tags={["Feature"]}>
+  ## New features
+
+  - **VidNest provider** — A new `vidnest` provider has been added to the [provider lineup](/core/configuration/providers) and is enabled by default. It fans out across multiple VidNest backends (`klikxxi`, `allmovies`, `onehd`, `hollymoviehd`, `vidlink`, and more) in parallel, decrypts each response, and aggregates every playable stream and subtitle track into a single result. Servers that VidNest exposes but CinePro doesn't yet handle surface as `PARTIAL_SCRAPE` warnings so you can tell when new backends appear upstream.
+  - **CineSu provider** — A new `CineSu` provider has been added and is enabled by default, contributing additional movie and TV sources via the `cine.su` manifest API. The provider performs a lightweight reachability check before returning streams so unplayable titles short-circuit cleanly.
+</Update>
+
 <Update label="April 28, 2026" tags={["Update", "Fix"]}>
   ## Updates
 
