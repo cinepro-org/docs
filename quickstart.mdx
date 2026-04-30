@@ -8,11 +8,32 @@ mode: "wide"
 
 Before you start, you will need:
 
-- **Node.js 20+** — [Download at nodejs.org](https://nodejs.org/en/download/)
 - **A TMDB API key** — [Get one for free at themoviedb.org](https://www.themoviedb.org/settings/api)
 
 <Tabs>
-  <Tab title="Windows">
+
+  <Tab title="Docker (recommended)">
+    <Steps>
+      <Step title="Install Docker" icon="container">
+        Make sure you have Docker installed and running. You can download it from [docker.com](https://www.docker.com/get-started).
+      </Step>
+
+      <Step title="Run CinePro Core with one command" icon="play">
+        ```bash
+        docker run --name cinepro-core -p 3000:3000 -e TMDB_API_KEY=your_tmdb_api_key_here ghcr.io/cinepro-org/core:latest
+        ```
+
+        This command pulls the latest CinePro Core image, starts it in a container, and exposes it on port 3000. Make sure to replace `your_tmdb_api_key_here` with your actual TMDB API key.
+
+        <Info>
+          You can add more environment variables as needed (e.g. `HOST`, `PORT`, `CACHE_TYPE`, etc.) — just append `-e VAR_NAME=value` for each one.
+        </Info>
+      </Step>
+    </Steps>
+  </Tab>
+
+
+  <Tab title="Windows (development)">
     <Steps>
       <Step title="Install Node.js" icon="square-terminal">
         Install Node.js **v20 or higher**.
@@ -233,9 +254,11 @@ Before you start, you will need:
     </Steps>
   </Tab>
 
-  <Tab title="Docker (Compose)">
+  <Tab title="Docker (compose)">
     <Note>
       Docker Compose is the **recommended production deployment** method. It includes a Redis instance automatically.
+
+      This is overkill if you just want to run a local dev server, but it's a great way to get a production-like environment up and running quickly.
     </Note>
 
     <Steps>
@@ -289,50 +312,6 @@ Before you start, you will need:
     </Steps>
   </Tab>
 
-  <Tab title="Docker (Standalone)">
-    <Steps>
-      <Step title="Clone the repository" icon="git-branch">
-        ```bash
-        git clone https://github.com/cinepro-org/core.git
-        cd core
-        ```
-      </Step>
-
-      <Step title="Build the image" icon="hammer">
-        ```bash
-        docker build -t cinepro-core:latest .
-        ```
-      </Step>
-
-      <Step title="Run the container" icon="play">
-        With in-memory cache (simplest):
-
-        ```bash
-        docker run -d \
-          -p 3000:3000 \
-          -e TMDB_API_KEY=your_tmdb_api_key_here \
-          -e CACHE_TYPE=memory \
-          cinepro-core:latest
-        ```
-
-        With an external Redis instance:
-
-        ```bash
-        docker run -d \
-          -p 3000:3000 \
-          -e TMDB_API_KEY=your_tmdb_api_key_here \
-          -e CACHE_TYPE=redis \
-          -e REDIS_HOST=your-redis-host \
-          -e REDIS_PORT=6379 \
-          cinepro-core:latest
-        ```
-
-        <Info>
-          The Dockerfile sets `HOST=0.0.0.0` by default in container builds so the server correctly binds to all interfaces.
-        </Info>
-      </Step>
-    </Steps>
-  </Tab>
 </Tabs>
 
 ---

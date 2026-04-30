@@ -4,27 +4,15 @@ description: "Current status, focus, and roadmap for CinePro."
 mode: "wide"
 ---
 
-<Note>
-  CinePro is currently in active development and considered in an **alpha** stage.  
-  Breaking changes, incomplete features, and rapid iteration are expected.
-</Note>
+<Check>
+  CinePro Core has officially launched! The project is **actively maintained** and open for contributions.
+</Check>
 
 ## Where the project stands
 
-CinePro originally shipped as a Node.js backend in the [`cinepro-org/backend`](https://github.com/cinepro-org/backend) repository, which is now **archived** and no longer the main development target.  
-The current focus is **CinePro Core**, a TypeScript, OMSS‑compliant backend in [`cinepro-org/core`](https://github.com/cinepro-org/core) that powers the rest of the ecosystem.
+CinePro Core is the TypeScript, OMSS‑compliant backend at [`cinepro-org/core`](https://github.com/cinepro-org/core) — the active foundation for the entire CinePro ecosystem. The original JavaScript backend at [`cinepro-org/backend`](https://github.com/cinepro-org/backend) is **archived** and kept for historical reference only.
 
-CinePro aims to be a modular, high‑performance movie and TV scraper that does **not** host any media itself and is intended for **personal and home use only**.  
-The project is maintained by a small team and relies heavily on community contributions for providers, bug fixes, and documentation improvements.
-
-<CardGroup cols={2}>
-  <Card title="Legacy backend" icon="archive">
-    JavaScript backend at <Link href="https://github.com/cinepro-org/backend">cinepro-org/backend</Link> is archived and kept for historical reference only.
-  </Card>
-  <Card title="Current focus" icon="server-cog">
-    TypeScript / OMSS‑compliant <Link href="https://github.com/cinepro-org/core">cinepro-org/core</Link> is the active backend and the foundation for all new work.
-  </Card>
-</CardGroup>
+CinePro is a modular, high‑performance movie and TV scraper that does **not** host any media itself and is intended for **personal and home use only**. The project is maintained by a small team — and that's exactly why we need you.
 
 <Warning>
   Production or commercial deployments are **not supported**. CinePro Core and the example frontend are intended for experimentation, learning, and home‑lab usage.
@@ -32,26 +20,9 @@ The project is maintained by a small team and relies heavily on community contri
 
 ## Current focus areas
 
-### 1. TypeScript & OMSS compliance
+### 1. Provider coverage & quality
 
-The primary engineering effort is on the TypeScript rewrite (`cinepro-org/core`) using the `@omss/framework` to fully implement the Open Media Streaming Standard.  
-This includes enforcing strong typing across providers, aligning endpoints with the shared OMSS OpenAPI spec, and keeping CinePro in sync with upstream OMSS changes. 
-
-[Read the benefits of OMSS HERE!](https://github.com/omss-spec/omss-spec#%EF%B8%8F-architecture)
-
-<KeyFeatures>
-  <KeyFeature title="Strict typing" icon="braces">
-    Core is written in TypeScript with strict type checking to reduce runtime errors and make provider development safer.
-  </KeyFeature>
-  <KeyFeature title="Shared spec" icon="file-code-2">
-    HTTP endpoints follow the OMSS spec so other tools in the OMSS ecosystem can integrate with CinePro more easily.
-  </KeyFeature>
-</KeyFeatures>
-
-### 2. Provider coverage & quality
-
-CinePro Core ships with multiple providers under `src/providers` (for example `vidsrc`, `02moviedownloader`, `fmovies4u`, `vidrock`, `streammafia`, `popr`, and others), but coverage and stability are still evolving.  
-Improving provider reliability, adding new sites, and hardening scraping logic against layout changes are ongoing tasks.
+CinePro Core ships with multiple providers under `src/providers`, but coverage and stability are continuously evolving. This is one of the **highest-impact areas for new contributors**.
 
 <Steps>
   <Step title="Stabilize existing providers" icon="wrench">
@@ -60,49 +31,38 @@ Improving provider reliability, adding new sites, and hardening scraping logic a
   <Step title="Add new providers" icon="plug">
     Expand the set of supported sources to increase availability and redundancy for movies and TV shows.
   </Step>
-  <Step title="Document provider interface" icon="book-open">
-    Publish clear guidelines for implementing OMSS‑compatible providers so contributors can add new ones safely and consistently.
-  </Step>
 </Steps>
 
-<Card title="Performance goals" icon="gauge">
-  <ul>
-    <li>Efficient reuse of results via Redis or in‑memory caching for repeated lookups.</li>
-    <li>Configurable timeouts and retries when fetching from third‑party providers.</li>
-    <li>Better logging and error messages to help users and contributors diagnose issues quickly.</li>
-  </ul>
-</Card>
+### 2. CineHome integration
 
-### 3. CineHome integration
+Beyond the streaming backend, it is planned that CinePro/core also powers **CineHome** — a service for automating downloads to a NAS or similar device.
+This has not been started yet, but will be a major focus in the coming months. CineHome will be a separate repository, but close integration with Core will be essential.
 
-Beyond the streaming backend and demo frontend, CinePro is part of a wider ecosystem that includes **CineHome**, a service for automating downloads to a NAS or similar device.  
-CineHome uses CinePro Core as a source of streaming links and metadata, then handles the download and storage workflow via dedicated backend and frontend projects.
+## We need contributors — and that means you
 
-<CardGroup>
-  <Card title="CineHome backend" icon="hard-drive">
-    <Link href="https://github.com/cinepro-org/CineHome-backend">cinepro-org/CineHome-backend</Link> coordinates downloads using CinePro Core as the discovery engine.
+CinePro is a small team maintaining a growing ecosystem. There's plenty of meaningful work available at every skill level — whether you write code, test things, or just improve docs.
+
+<CardGroup cols={2}>
+  <Card title="Star the repo" icon="star" href="https://github.com/cinepro-org/core">
+    It sounds small, but visibility matters. A ⭐ helps new contributors find the project.
   </Card>
-  <Card title="CineHome frontend" icon="monitor-play">
-    <Link href="https://github.com/cinepro-org/CineHome-frontend">cinepro-org/CineHome-frontend</Link> provides a UI to manage and monitor automated downloads.
+  <Card title="Join the discussion" icon="messages-square" href="https://github.com/orgs/cinepro-org/discussions">
+    Share ideas, ask questions, and help shape the direction of CinePro. No code required.
   </Card>
 </CardGroup>
-
-The roadmap here is to tighten the contract between CinePro Core and CineHome so that updates to providers and OMSS endpoints automatically benefit automation workflows.  
-Future work includes documenting recommended setups (Core + CineHome + storage), shared configuration patterns, and version compatibility guarantees between these projects.
-
-## How you can help
-
-If you want to influence the roadmap or help move CinePro out of alpha, contributions are very welcome.  
-You can join discussions via GitHub Discussions or the contributor chat and start with issues labelled around providers, performance, or documentation.
 
 <CardGroup cols={3}>
-  <Card title="Join discussions" icon="messages-square" href="https://github.com/orgs/cinepro-org/discussions">
-    Share feedback, ideas, and questions about the direction of the project.
+  <Card title="Add a provider" icon="plug" href="https://github.com/cinepro-org/core/issues">
+    Know a working streaming source? Implement an OMSS provider and open a PR. Providers are the #1 way to directly improve CinePro for everyone.
   </Card>
-  <Card title="Contribute code" icon="git-pull-request" href="https://github.com/cinepro-org/core/issues">
-    Pick up issues in CinePro Core (TypeScript / OMSS) and help improve the backend.
+  <Card title="Fix a bug" icon="bug" href="https://github.com/cinepro-org/core/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22good%20first%20issue%22">
+    Browse open issues in `cinepro-org/core`. Even small fixes help keep the project reliable for all users.
   </Card>
   <Card title="Improve docs" icon="file-pen" href="https://github.com/cinepro-org/docs">
-    Refine these docs, clarify setup steps, or add provider and ecosystem guides.
+    Spot something unclear? Missing a guide? Good documentation is what turns a project into a community.
   </Card>
 </CardGroup>
+
+<Note>
+  Not sure where to start? Head to [GitHub Discussions](https://github.com/orgs/cinepro-org/discussions) and introduce yourself — we'll point you to something that fits your skills.
+</Note>

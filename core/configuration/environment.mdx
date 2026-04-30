@@ -1,280 +1,269 @@
 ---
-title: 'Environment variables'
-description: 'Configure CinePro Core using environment variables. All configuration is done via a .env file in the project root.'
+title: "Environment variables"
+description: "Configure CinePro Core using environment variables. All configuration is done via a .env file in the project root."
 ---
 
-<Info>Copy `.env.example` to `.env` before starting the server. CinePro Core will not start without a valid `TMDB_API_KEY`.</Info>
+<Info>
+  Copy `.env.example` to `.env` before starting the server. CinePro Core requires a valid `TMDB_API_KEY` to resolve metadata and start correctly.
+</Info>
 
 ## Required vs optional
 
 <Columns cols={2}>
-    <Card title="Required" icon="circle-alert" color="#f5413f">
-        - `TMDB_API_KEY` — the server will crash on startup without it
-    </Card>
-    <Card title="Optional" icon="circle-check" color="#22c55e">
-        - `PORT`, `HOST`, `PUBLIC_URL`, `NODE_ENV` — sensible defaults are built in - `CACHE_TYPE`, `REDIS_*` — only needed for Redis-backed caching in production
-    </Card>
-</Columns>
+  <Card title="Required" icon="circle-alert" color="#f5413f">
+    - `TMDB_API_KEY` — required for metadata lookups and startup
+  </Card>
 
----
+  <Card title="Optional" icon="circle-check" color="#22c55e">
+    - `PORT`, `HOST`, `PUBLIC_URL`, `NODE_ENV` — server runtime settings  
+    - `CACHE_TYPE`, `REDIS_*` — only needed for Redis-backed caching  
+    - `STREMIO_ADDON`, `MCP_ENABLED`, `CORS_ORIGIN`, `TMDB_CACHE_TTL` — optional integrations and tuning
+  </Card>
+</Columns>
 
 ## Server configuration
 
 <ParamField path="PORT" type="number" default="3000">
   The port CinePro Core listens on.
 
-```bash .env (development)
-PORT=3000
-```
+  ```bash .env
+  PORT=3000
+  ```
 
-```bash .env (production — custom port)
-PORT=8080
-```
-
+  ```bash .env
+  PORT=8080
+  ```
 </ParamField>
 
 <ParamField path="HOST" type="string" default="localhost">
   The hostname or IP address the server binds to.
 
-Use `localhost` during development to keep the API private to your machine.
-Set to `0.0.0.0` in production or Docker deployments to accept connections from the LAN or internet.
+  Use `localhost` during development to keep the API limited to your machine.  
+  Use `0.0.0.0` in Docker or production if the API should be reachable from other devices.
 
-```bash .env (development)
-HOST=localhost
-```
+  ```bash .env
+  HOST=localhost
+  ```
 
-```bash .env (production / Docker)
-HOST=0.0.0.0
-```
-
+  ```bash .env
+  HOST=0.0.0.0
+  ```
 </ParamField>
 
 <ParamField path="PUBLIC_URL" type="string">
-  The publicly accessible base URL of your CinePro Core instance. Used by the OMSS framework when generating absolute links in API responses (for example, stream URLs returned to clients).
-
-Leave it unset locally — the framework will fall back to `http://<HOST>:<PORT>`.
-
-```bash .env (production)
-PUBLIC_URL=https://api.example.com
-```
-
-  <Warning>
-    Always include the protocol (`https://`) and **no trailing slash**. Incorrect values here will cause broken stream URLs in API responses.
-  </Warning>
-</ParamField>
-
-<ParamField path="STREMIO_ADDON" type="boolean" default="false">
-  When set to `true`, CinePro exposes a native Stremio addon manifest at `/stremio/manifest.json`, allowing CinePro to be added as a Stremio source. Opt in by setting `STREMIO_ADDON=true` in your `.env`.
-
-  Two community addons (WebStreamerMBG and Streamify) are pre-wired by default.
-</ParamField>
-
-<ParamField path="MCP_ENABLED" type="boolean" default="false">
-  When set to `true`, CinePro Core exposes a [Model Context Protocol](https://modelcontextprotocol.io) server, letting AI agents and MCP-compatible clients query CinePro for movie and TV stream sources directly. Opt in by setting `MCP_ENABLED=true` in your `.env`.
+  The public base URL of your CinePro Core instance. Use this when your server is exposed through a public hostname, reverse proxy, or domain.
 
   ```bash .env
-  MCP_ENABLED=true
+  PUBLIC_URL=https://api.example.com
   ```
 
-  <Info>
-    MCP support is provided by the underlying [`@omss/framework`](https://github.com/omss-spec/framework). Leave it disabled if you don't plan to connect AI agents to your CinePro instance — there is no benefit to enabling it for a regular HTTP API workload.
-  </Info>
-</ParamField>
-
-<ParamField path="CORS_ORIGIN" type="string">
-  Optional. Restricts which origins may call the CinePro API. Provide a single origin (for example `https://example.com`) to restrict access, or leave empty to allow all origins (legacy behavior).
-
-```bash .env
-CORS_ORIGIN=https://example.com
-```
-
-  Use this variable when the API is exposed publicly and you need to limit cross-origin requests.
+  <Warning>
+    Include the protocol and do not add a trailing slash. A wrong `PUBLIC_URL` can produce broken absolute URLs in responses.
+  </Warning>
 </ParamField>
 
 <ParamField path="NODE_ENV" type="string" default="development">
   Controls the runtime mode.
 
-| Value         | Behavior                                                                |
-| ------------- | ----------------------------------------------------------------------- |
-| `development` | Verbose logging, detailed error messages, hot reload with `npm run dev` |
-| `production`  | Clean console output, minimal error exposure, optimised for `npm start` |
+  | Value | Usage |
+  | --- | --- |
+  | `development` | Local development, debugging, and `npm run dev` |
+  | `production` | Optimized runtime for `npm start` and deployed instances |
 
-```bash .env (development)
-NODE_ENV=development
-```
+  ```bash .env
+  NODE_ENV=development
+  ```
 
-```bash .env (production)
-NODE_ENV=production
-```
+  ```bash .env
+  NODE_ENV=production
+  ```
+</ParamField>
 
+<ParamField path="CORS_ORIGIN" type="string">
+  Optional. Restricts which browser origins may call the CinePro API.
+
+  Leave unset to keep the default behavior, or set it to a specific origin if you expose the API publicly.
+
+  ```bash .env
+  CORS_ORIGIN=https://example.com
+  ```
+</ParamField>
+
+## Optional integrations
+
+<ParamField path="STREMIO_ADDON" type="boolean" default="false">
+  Enables CinePro's Stremio addon support.
+
+  When enabled, CinePro exposes a Stremio manifest endpoint so your instance can be added as a Stremio source.
+
+  ```bash .env
+  STREMIO_ADDON=true
+  ```
+</ParamField>
+
+<ParamField path="MCP_ENABLED" type="boolean" default="false">
+  Enables Model Context Protocol support for MCP-compatible clients and AI agents.
+
+  ```bash .env
+  MCP_ENABLED=true
+  ```
+
+  <Note>
+    Enable this only if you actually plan to connect CinePro to MCP clients. Regular API users do not need it.
+  </Note>
 </ParamField>
 
 ## TMDB configuration
 
 <ParamField path="TMDB_API_KEY" type="string" required>
-  Your TMDB (The Movie Database) API key. CinePro Core uses this for all metadata lookups — movie/show titles, posters, IDs, and more. **The server will fail to start if this is missing or invalid.**
+  Your TMDB (The Movie Database) API key. CinePro Core uses TMDB for metadata such as titles, IDs, and artwork.
 
-<Steps>
-    <Step title="Create a TMDB account">Go to [themoviedb.org](https://www.themoviedb.org/) and sign up for a free account.</Step>
-    <Step title="Request an API key">Navigate to **Settings → API** and request a key. Choose the **Developer** option.</Step>
-    <Step title="Add it to your .env">```bash .env TMDB_API_KEY=your_tmdb_api_key_here ```</Step>
-</Steps>
+  <Steps>
+    <Step title="Create a TMDB account">
+      Sign up at [themoviedb.org](https://www.themoviedb.org/).
+    </Step>
+
+    <Step title="Request an API key">
+      Open **Settings → API** in TMDB and request a developer key.
+    </Step>
+
+    <Step title="Add the key to your .env">
+      ```bash .env
+      TMDB_API_KEY=your_tmdb_api_key_here
+      ```
+    </Step>
+  </Steps>
 
   <Tip>
-    TMDB API keys are free for non-commercial use. Keep your key private — do not commit `.env` to source control.
+    Keep this key private and never commit your `.env` file to version control.
   </Tip>
 </ParamField>
 
 <ParamField path="TMDB_CACHE_TTL" type="number" default="86400">
-  How long (in seconds) TMDB metadata responses are cached. The default is 24 hours (`86400`).
+  Defines how long TMDB metadata responses are cached, in seconds.
 
-Lowering this value keeps metadata fresher but increases TMDB API calls. Raising it reduces API usage at the cost of occasionally stale data.
+  The default `86400` equals 24 hours.
 
-```bash .env
-TMDB_CACHE_TTL=86400   # 24 hours (recommended)
-```
-
+  ```bash .env
+  TMDB_CACHE_TTL=86400
+  ```
 </ParamField>
-
----
 
 ## Cache configuration
 
 <ParamField path="CACHE_TYPE" type="string" default="memory">
-  Selects the caching backend. Accepted values are `memory` and `redis`.
+  Selects the cache backend used by CinePro Core.
 
-| Value    | When to use                                                                                          |
-| -------- | ---------------------------------------------------------------------------------------------------- |
-| `memory` | Development or single-instance deployments with no persistence requirement                           |
-| `redis`  | Production deployments, especially where cache should survive restarts or be shared across instances |
+  | Value | Best for |
+  | --- | --- |
+  | `memory` | Local development and simple single-instance setups |
+  | `redis` | Production deployments and shared or persistent caching |
 
-```bash .env (development)
-CACHE_TYPE=memory
-```
+  ```bash .env
+  CACHE_TYPE=memory
+  ```
 
-```bash .env (production)
-CACHE_TYPE=redis
-```
+  ```bash .env
+  CACHE_TYPE=redis
+  ```
 
   <Note>
-    When `CACHE_TYPE=redis`, the `REDIS_HOST`, `REDIS_PORT`, and (optionally) `REDIS_PASSWORD` variables must also be set.
+    If you use `redis`, configure the Redis connection variables below as well.
   </Note>
 </ParamField>
 
----
-
 ## Redis configuration
 
-These variables are **only required when `CACHE_TYPE=redis`**. If you are using `memory` cache you can leave them unset.
+These variables are only needed when `CACHE_TYPE=redis`.
 
 <ParamField path="REDIS_HOST" type="string" default="localhost">
-  Hostname or IP of your Redis instance.
+  Hostname or IP address of your Redis server.
 
-```bash .env (local Redis)
-REDIS_HOST=localhost
-```
+  ```bash .env
+  REDIS_HOST=localhost
+  ```
 
-```bash .env (remote Redis / managed service)
-REDIS_HOST=redis.example.com
-```
-
+  ```bash .env
+  REDIS_HOST=redis.example.com
+  ```
 </ParamField>
 
 <ParamField path="REDIS_PORT" type="number" default="6379">
-  Port your Redis instance listens on. The Redis default is `6379`.
+  Port of your Redis instance.
 
-```bash .env
-REDIS_PORT=6379
-```
-
+  ```bash .env
+  REDIS_PORT=6379
+  ```
 </ParamField>
 
 <ParamField path="REDIS_PASSWORD" type="string">
-  Password for Redis authentication. Leave empty if your Redis instance has no password (e.g. a local dev instance).
+  Optional password for Redis authentication.
 
-```bash .env (no password)
-REDIS_PASSWORD=
-```
+  ```bash .env
+  REDIS_PASSWORD=
+  ```
 
-```bash .env (with password)
-REDIS_PASSWORD=supersecretpassword
-```
+  ```bash .env
+  REDIS_PASSWORD=supersecretpassword
+  ```
 
   <Warning>
-    Never commit a Redis password to source control. Use a secrets manager or CI/CD environment injection in production.
+    Never commit Redis credentials to source control. Use environment injection or a secrets manager in production.
   </Warning>
 </ParamField>
 
-## Full .env reference
+## Full .env examples
 
 ### Development
 
-A minimal `.env` for local development — memory cache, localhost binding, verbose logging.
-
 ```bash .env
-# Server
 PORT=3000
 HOST=localhost
 NODE_ENV=development
 
-# TMDB
 TMDB_API_KEY=your_tmdb_api_key_here
 TMDB_CACHE_TTL=86400
 
-# Cache
 CACHE_TYPE=memory
 ```
 
-### Production (with Redis)
-
-A complete production `.env` with Redis caching and a public URL.
+### Production
 
 ```bash .env
-# Server
 PORT=8080
 HOST=0.0.0.0
 NODE_ENV=production
 PUBLIC_URL=https://api.example.com
 
-# Optional integrations
-STREMIO_ADDON=false
-MCP_ENABLED=false
-
-# TMDB
 TMDB_API_KEY=your_tmdb_api_key_here
 TMDB_CACHE_TTL=86400
 
-# Cache
 CACHE_TYPE=redis
-
-# Redis
 REDIS_HOST=redis.example.com
 REDIS_PORT=6379
 REDIS_PASSWORD=supersecretpassword
+
+STREMIO_ADDON=false
+MCP_ENABLED=false
 ```
 
-### Docker Compose (with built-in Redis)
-
-When using `compose.yml`, the Redis host is the Docker service name (`redis`) rather than `localhost`.
+### Docker Compose
 
 ```bash .env
-# Server
 PORT=3000
 HOST=0.0.0.0
 NODE_ENV=production
 PUBLIC_URL=http://localhost:3000
 
-# TMDB
 TMDB_API_KEY=your_tmdb_api_key_here
 TMDB_CACHE_TTL=86400
 
-# Cache
 CACHE_TYPE=redis
-
-# Redis (Docker service name)
 REDIS_HOST=redis
 REDIS_PORT=6379
 REDIS_PASSWORD=
 ```
 
-<Tip>When running via Docker Compose, `REDIS_HOST` should match the service name defined in `compose.yml` — not `localhost`.</Tip>
+<Tip>
+  In Docker Compose, `REDIS_HOST` should usually be the Redis service name from `compose.yml`, not `localhost`.
+</Tip>

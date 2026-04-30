@@ -4,6 +4,9 @@ description: 'Change log for **CinePro/Core**.'
 mode: 'wide'
 ---
 
+
+You can always review the [latest release here](https://github.com/cinepro-org/core/releases/latest) and run it locally with `docker run -p 3000:3000 --name cinepro-core -e TMDB_API_KEY=your-tmdb-key ghcr.io/cinepro-org/core:latest` to see the newest features in action. For a detailed breakdown of recent changes, keep reading!
+
 <Update label="April 29, 2026" tags={["Feature"]}>
   ## New features
 
@@ -36,13 +39,13 @@ mode: 'wide'
 
   ## Updates
 
-  - **Richer Docker image metadata** — Official container images on the GitHub Container Registry now carry standard OCI labels (version, revision, build date, source URL), making it easier to inspect and audit the image you're running in your [Docker deployment](/core/configuration/deployment).
+  - **Richer Docker image metadata** — Official container images on the GitHub Container Registry now carry standard OCI labels (version, revision, build date, source URL), making it easier to inspect and audit the image you're running in your [Docker deployment](/quickstart#docker-compose).
 </Update>
 
 <Update label="April 26, 2026" tags={["Update", "Fix"]}>
   ## Updates
 
-  - **Automated GitHub Releases** — Every push to `main` now triggers an automated release with categorized notes and multi-architecture (`amd64` / `arm64`) Docker images published to the GitHub Container Registry. Pin a specific version in your [Docker deployment](/core/configuration/deployment) instead of always tracking `latest`.
+  - **Automated GitHub Releases** — Every push to `main` now triggers an automated release with categorized notes and multi-architecture (`amd64` / `arm64`) Docker images published to the GitHub Container Registry. Pin a specific version in your [Docker deployment](/quickstart#docker-compose) instead of always tracking `latest`.
 
   ## Bug fixes
 
@@ -53,7 +56,7 @@ mode: 'wide'
   ## New features
 
   - **Stremio addon support** — CinePro Core can now expose a native Stremio addon endpoint at `/stremio/manifest.json`, letting you plug CinePro directly into Stremio. Opt in by setting `STREMIO_ADDON=true` in your [environment](/core/configuration/environment). Two community addons (WebStreamerMBG and Streamify) are pre-wired out of the box.
-  - **Automated Docker images** — Official container images are now built and published automatically to the GitHub Container Registry on every release, making [Docker deployments](/core/configuration/deployment) simpler and more reliable.
+  - **Automated Docker images** — Official container images are now built and published automatically to the GitHub Container Registry on every release, making [Docker deployments](/quickstart#docker-compose) simpler and more reliable.
 
   ## Updates
 

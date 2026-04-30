@@ -43,7 +43,7 @@
                                     {
                                         "group": "Configuration",
                                         "icon": "settings-2",
-                                        "pages": ["core/configuration/environment", "core/configuration/providers", "core/configuration/deployment"]
+                                        "pages": ["core/configuration/environment", "core/configuration/providers"]
                                     },
                                     {
                                         "group": "Ecosystem & versions",
@@ -232,11 +232,16 @@
         },
         "indexing": "navigable"
     },
+    "banner": {
+        "content": "🎬 **CinePro is officially here!** Check out the [latest release](https://github.com/cinepro-org/core/releases/latest) for details!🥳",
+        "type": "info",
+        "dismissible": true
+    },
     "errors": {
         "404": {
             "redirect": false,
             "title": "Pageception",
-            "description": "This page fell through a rabbit hole, hopped on the Hogwarts Express, and got lost in Gotham.<br></br>**[Reality resumes here](/)**<br></br><br></br>If you are looking for past documentation, you can find it in [the docs repo](https://github.com/cinepro-org/docs/commits)"
+            "description": "This page fell through a rabbit hole, hopped on the Hogwarts Express, and got lost in Gotham.<br></br>**[Reality resumes here](/)**<br></br><br></br>If you are looking for past documentation, you can find it in [the docs repo](https://github.com/cinepro-org/docs/commits)."
         }
     }
 }

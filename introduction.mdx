@@ -4,17 +4,10 @@ description: "Welcome to the CinePro Core documentation. CinePro Core is an [OMS
 mode: "wide"
 ---
 
-<Note>
-
-  CinePro Core is currently in active development and considered **alpha** software.  
-  Expect breaking changes and incomplete features as the OMSS‑compliant TypeScript backend evolves.
-
-</Note>
-
 ## What is CinePro Core?
 
-CinePro Core is the foundational backend service of the CinePro ecosystem, built in TypeScript on top of the Open Media Streaming Standard (OMSS) for movies and TV shows.  
-It acts as a unified scraping and streaming engine that aggregates multiple third‑party providers into a single, consistent API.
+CinePro Core is the foundational backend service of the CinePro ecosystem, built in TypeScript on top of the [Open Media Streaming Standard (OMSS) for movies and TV shows](https://github.com/omss-spec/omss-spec).  
+It acts as **a unified scraping and streaming engine that aggregates multiple third‑party providers into a single, consistent API**.
 
 <CardGroup cols={2}>
 
@@ -26,7 +19,7 @@ It acts as a unified scraping and streaming engine that aggregates multiple thir
 
   <Card title="Ecosystem backbone" icon="layers">
 
-    Core powers the broader CinePro ecosystem, including experimental frontends and CineHome, by exposing a shared HTTP API and data model.
+    Core powers the broader CinePro ecosystem, including an experimental frontend and CineHome, by exposing a shared HTTP API and data model.
 
   </Card>
 
@@ -37,46 +30,40 @@ It acts as a unified scraping and streaming engine that aggregates multiple thir
 <CardGroup cols={2}>
 
 
-  <Card title="Docker‑ready deployment" icon="docker">
+  <Card title="Docker‑ready deployment" icon="docker" href="/core/configuration/deployment">
 
-    Ship CinePro Core as a container. Official multi‑architecture images are published to GitHub Container Registry (ghcr.io/cinepro-org/core); pull with `docker pull ghcr.io/cinepro-org/core:latest` (linux/amd64 and linux/arm64 supported), or build locally using the included [`Dockerfile`](https://github.com/cinepro-org/core/blob/main/Dockerfile). Use Docker Compose with the official image (optional Redis).
-
-  </Card>
-
-  <Card title="Modular providers" icon="plug">
-
-    Add and maintain multiple streaming providers behind a single API.  
-    Providers live in the [`src/providers`](https://github.com/cinepro-org/core/tree/main/src/providers) directory and can be extended without changing the core server.
+    Ship CinePro Core as a container. Official multi‑architecture images are published to GitHub Container Registry (ghcr.io/cinepro-org/core); run the latest version with one command `docker run -p 3000:3000 --name cinepro-core -e TMDB_API_KEY=your-tmdb-key ghcr.io/cinepro-org/core:latest`!
 
   </Card>
 
-    <Card title="Stremio addon support" icon="puzzle">
+  <Card title="Modular providers" icon="plug" href="/core/configuration/providers">
 
-    CinePro can expose a native Stremio addon manifest at `/stremio/manifest.json`. Enable it by setting `STREMIO_ADDON=true` in your environment. Two community addons (WebStreamerMBG and Streamify) are pre-wired, and additional Stremio addons can be added directly into Core.
-
-  </Card>
-
-  <Card title="MCP support for AI agents" icon="bot">
-
-    CinePro Core can expose a [Model Context Protocol](https://modelcontextprotocol.io) server that lets AI agents query stream sources directly. Opt in by setting `MCP_ENABLED=true` in your environment.
+    CinePro maintains multiple streaming providers that fan out across different third‑party sites in parallel, decrypt and aggregate results, and return a unified list of playable sources.
+    Providers live in the [`src/providers`](https://github.com/cinepro-org/core/tree/main/src/providers) directory and can be extended without changing the core server!
 
   </Card>
 
-  <Card title="Caching & performance" icon="gauge">
+    <Card title="Stremio addon support" icon="puzzle" href="/core/configuration/environment#param-stremio-addon">
+
+    CinePro can expose a Stremio addon manifest at `/stremio/manifest.json`. Enable it by setting `STREMIO_ADDON=true` in your environment.
+
+  </Card>
+
+  <Card title="MCP support for AI agents" icon="bot" href="/core/configuration/environment#param-mcp-enabled">
+
+    CinePro Core is the **first streaming backend to ever support the Model Context Protocol (MCP)**, letting AI agents query stream sources directly. Enable it by setting `MCP_ENABLED=true` in your environment. ([News](https://github.com/omss-spec/framework#:~:text=Additionally%2C%20this%20is,using%20AI%20assistants.))
+
+  </Card>
+
+  <Card title="Caching & performance" icon="gauge" href="/core/configuration/environment#cache-configuration">
 
     Designed for production‑grade performance with support for in‑memory caching and Redis‑backed caching in containerized deployments.
 
   </Card>
 
-  <Card title="Multi‑source media" icon="film">
+  <Card title="CineHome integration" icon="hard-drive" href="/cinehome/coming-soon">
 
-    Fetch movie and TV show sources from multiple third‑party providers through a single OMSS‑style API, instead of integrating each site separately.
-
-  </Card>
-
-  <Card title="CineHome integration" icon="hard-drive">
-
-    Integrates with the CineHome services to automate downloading and organizing media to your own storage (such as a NAS or home server).
+    Integrates with the CineHome services to automate downloading and organizing media to your own storage (such as a NAS or home server). [Coming soon!]
 
   </Card>
 
