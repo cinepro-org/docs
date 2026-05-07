@@ -94,11 +94,40 @@ description: "Configure CinePro Core using environment variables. All configurat
 <ParamField path="STREMIO_ADDON" type="boolean" default="false">
   Enables CinePro's Stremio addon support.
 
-  When enabled, CinePro exposes a Stremio manifest endpoint so your instance can be added as a Stremio source.
+  When enabled, CinePro exposes a Stremio manifest endpoint at `/stremio/manifest.json` so your instance can be added as a Stremio source.
 
   ```bash .env
   STREMIO_ADDON=true
   ```
+
+  ### Adding custom Stremio addons as sources
+
+  CinePro Core can also pull streams _from_ existing Stremio addons and surface them as additional sources. This list is configured in `src/server.ts` rather than via an environment variable.
+
+  As of the May 7, 2026 release, the default `stremioAddons` array is **empty** — you must explicitly add the addons you want to use:
+
+  ```typescript src/server.ts
+  stremio: {
+      enableNativeAddon: process.env.STREMIO_ADDON === 'true',
+      stremioAddons: [
+          {
+              id: 'some-unique-id',
+              url: 'https://example.com/manifest.json',
+              enabled: true
+          }
+      ]
+  }
+  ```
+
+  | Field | Type | Description |
+  | --- | --- | --- |
+  | `id` | `string` | Unique identifier for the addon within CinePro |
+  | `url` | `string` | Full URL to the addon's `manifest.json` |
+  | `enabled` | `boolean` | Toggle the addon without removing the entry |
+
+  <Note>
+    Earlier versions of CinePro Core shipped two community addons (WebStreamerMBG and Streamify) pre-wired in this list. They have been removed so you can curate your own list from a clean slate.
+  </Note>
 </ParamField>
 
 <ParamField path="MCP_ENABLED" type="boolean" default="false">

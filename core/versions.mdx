@@ -7,6 +7,24 @@ mode: 'wide'
 
 You can always review the [latest release here](https://github.com/cinepro-org/core/releases/latest) and run it locally with `docker run -p 3000:3000 --name cinepro-core -e TMDB_API_KEY=your-tmdb-key ghcr.io/cinepro-org/core:latest` to see the newest features in action. For a detailed breakdown of recent changes, keep reading!
 
+<Update label="May 7, 2026" tags={["Feature", "Update", "Fix"]}>
+  ## New features
+
+  - **AnyEmbed provider** — A new `anyembed` provider has been added to the [provider lineup](/core/configuration/providers). It is shipped **disabled by default** while the upstream AnyEmbed API stabilizes — their session and stream endpoints currently return frequent 403/500 responses. The implementation is in place and can be flipped on by setting `readonly enabled = true` in the provider source once the upstream service is reliable.
+  - **VidNest gains `delta` and `moviebox` backends** — The `vidnest` provider now also fans out to the `delta` and `moviebox` upstream servers in addition to the existing backends, contributing more streams and audio-language variants to every movie and TV lookup. No configuration change is needed.
+
+  ## Updates
+
+  - **Stremio addons must now be configured explicitly** — The two pre-wired community addons (WebStreamerMBG and Streamify) have been removed from the default `stremioAddons` config. The default array is now empty, so you can curate your own list of [Stremio addon sources](/core/configuration/environment#param-stremio-addon) without first removing the bundled ones. Setting `STREMIO_ADDON=true` still enables CinePro's native addon manifest at `/stremio/manifest.json` — only the pre-wired _custom_ addons changed.
+  - **Peachify hardening** — The Peachify provider now rotates a randomized desktop user agent on every request, points to the new `uwu.eat-peach.sbs` MovieBox host, and uses a more robust AES-GCM decryption pipeline for encrypted payloads. The unreliable `ice` upstream server has been dropped from the rotation.
+  - **StreamMafia base URL update** — The provider now talks to `sf.streammafia.to` to track an upstream domain change. Existing setups keep working with no config changes.
+
+  ## Bug fixes
+
+  - **02MovieDownloader** — Added support for the upstream's new encrypted response format (AES-256-CBC with a per-token-derived key), restoring source resolution for titles that were silently failing.
+  - **Smarter proxy pattern matching** — Stream URLs served from `*.workers.dev` hosts and from `mp4-proxy?url=` endpoints are now correctly recognized and proxied, fixing playback for sources that were previously skipped.
+</Update>
+
 <Update label="April 29, 2026" tags={["Feature"]}>
   ## New features
 
