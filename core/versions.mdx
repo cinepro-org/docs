@@ -7,6 +7,24 @@ mode: 'wide'
 
 You can always review the [latest release here](https://github.com/cinepro-org/core/releases/latest) and run it locally with `docker run -p 3000:3000 --name cinepro-core -e TMDB_API_KEY=your-tmdb-key ghcr.io/cinepro-org/core:latest` to see the newest features in action. For a detailed breakdown of recent changes, keep reading!
 
+<Update label="May 7, 2026" tags={["Feature", "Update", "Fix"]}>
+  ## New features
+
+  - **AnyEmbed provider (disabled)** — A new `anyembed` provider has been added to the [provider lineup](/core/configuration/providers). It is shipped disabled while the upstream service stabilizes (intermittent `403`/`500` responses on the AnyEmbed API), and will be enabled by default in a future release once it returns playable streams reliably.
+  - **VidNest gets two new backends** — The `vidnest` provider now fans out to two additional VidNest backends — `delta` and `moviebox` — alongside the existing servers. Multi-language audio tracks from these backends are surfaced with their full language label, expanding the pool of streams returned for every movie and TV lookup.
+  - **Bring-your-own Stremio addons** — Stremio addon support no longer ships with hard-coded community addons. The `stremioAddons` array is now empty by default, and you control which addons CinePro pulls sources from by adding entries with your own `id`, `url`, and `enabled` flag. See [Stremio addon support](/core/configuration/environment#stremio-addons) for the configuration shape.
+
+  ## Updates
+
+  - **Peachify hardening** — The `peachify` provider now generates a randomized desktop user agent on every request, points at the new `uwu.eat-peach.sbs` MovieBox infrastructure, and drops the dead `ice` server from its rotation, leaving a leaner and more reliable server set.
+  - **MP4 proxy auto-detection** — Generic `*.workers.dev` proxies that expose an `mp4-proxy?url=` endpoint (in addition to `m3u8-proxy?url=`) are now recognized as third-party proxies and unwrapped automatically during playback, fixing direct-MP4 playback for sources behind those workers.
+  - **Cleaner proxy host list** — The dead `hlsproxy3.asiaflix.net` host has been removed from the recognized proxy host list now that the upstream proxy is offline, preventing wasted unwrap attempts.
+
+  ## Bug fixes
+
+  - **02MovieDownloader encrypted payloads** — The `02moviedownloader` provider now transparently decrypts AES-256-CBC encrypted API responses (`{ encrypted: true, data: "iv:cipher" }`) using the per-request token, restoring source resolution after the upstream switched to encrypted payloads for some titles.
+</Update>
+
 <Update label="April 29, 2026" tags={["Feature"]}>
   ## New features
 

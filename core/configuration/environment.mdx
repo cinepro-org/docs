@@ -94,12 +94,43 @@ description: "Configure CinePro Core using environment variables. All configurat
 <ParamField path="STREMIO_ADDON" type="boolean" default="false">
   Enables CinePro's Stremio addon support.
 
-  When enabled, CinePro exposes a Stremio manifest endpoint so your instance can be added as a Stremio source.
+  When enabled, CinePro exposes a Stremio manifest endpoint at `/stremio/manifest.json` so your instance can be added as a Stremio source.
 
   ```bash .env
   STREMIO_ADDON=true
   ```
 </ParamField>
+
+### Stremio addons
+
+CinePro Core can also pull sources from third-party Stremio addons and surface them through its own provider pipeline. The list of addons is configured in code (not via environment variables), inside the `stremio` block in `src/server.ts`.
+
+By default the `stremioAddons` array is **empty** — CinePro ships without any pre-wired Stremio addons. To use one, add an entry with a unique `id`, the addon's `manifest.json` URL, and an `enabled` flag.
+
+```typescript src/server.ts
+stremio: {
+    // exposes a stremio addon on /stremio/manifest.json
+    enableNativeAddon: process.env.STREMIO_ADDON === 'true',
+    // you can your own custom stremio addons as sources into cinepro.
+    stremioAddons: [
+        {
+            id: 'some-unique-id',
+            url: 'https://example.com/manifest.json',
+            enabled: true
+        }
+    ]
+}
+```
+
+| Field | Type | Description |
+| --- | --- | --- |
+| `id` | `string` | Unique identifier for the addon. Used internally to namespace results. |
+| `url` | `string` | Full URL to the addon's `manifest.json`. |
+| `enabled` | `boolean` | Toggle the addon without removing the entry. |
+
+<Note>
+  Configured Stremio addons are only consumed when `STREMIO_ADDON=true`. The `enableNativeAddon` flag and the `stremioAddons` array are independent — you can expose a Stremio addon, consume external Stremio addons, both, or neither.
+</Note>
 
 <ParamField path="MCP_ENABLED" type="boolean" default="false">
   Enables Model Context Protocol support for MCP-compatible clients and AI agents.
