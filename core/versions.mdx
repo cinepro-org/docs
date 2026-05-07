@@ -7,6 +7,25 @@ mode: 'wide'
 
 You can always review the [latest release here](https://github.com/cinepro-org/core/releases/latest) and run it locally with `docker run -p 3000:3000 --name cinepro-core -e TMDB_API_KEY=your-tmdb-key ghcr.io/cinepro-org/core:latest` to see the newest features in action. For a detailed breakdown of recent changes, keep reading!
 
+<Update label="May 7, 2026" tags={["Feature", "Update", "Fix"]}>
+  ## New features
+
+  - **AnyEmbed provider (preview)** — A new `anyembed` provider has been added to the [provider lineup](/core/configuration/providers). It ships disabled by default while the upstream service stabilizes, and can be turned on once their API is reliable enough for production use.
+  - **More VidNest backends** — VidNest now aggregates two additional upstream sources (`delta` and `moviebox`), each contributing per-language audio tracks. That means more playable streams and more dub options on movie and TV lookups out of the box.
+
+  ## Updates
+
+  - **02MovieDownloader restored** — The `02moviedownloader` provider now transparently handles the upstream's new encrypted response format, bringing back download source resolution for affected titles.
+  - **Peachify hardening** — Peachify now rotates a randomized desktop user agent on every request and points at the new `uwu.eat-peach.sbs` MovieBox endpoint. The deprecated `ice` server has been removed from the rotation, leaving a leaner, more reliable set of upstream backends.
+  - **StreamMafia endpoint update** — `streammafia` has been migrated to the new `sf.streammafia.to` host, restoring lookups after the previous endpoint was retired.
+  - **Cleaner Stremio defaults** — The default [Stremio addon list](/core/configuration/environment) is now empty. The previously bundled WebStreamerMBG and Streamify addons can still be added explicitly if you want them, but fresh installs no longer pull them in automatically.
+
+  ## Bug fixes
+
+  - **Broader proxy URL recognition** — The third-party proxy matcher now recognizes `mp4-proxy?url=` patterns alongside `m3u8-proxy?url=` (including those served from `*.workers.dev` hosts), fixing playback for direct MP4 streams routed through community proxies.
+  - **Release workflow with special characters** — The automated release pipeline no longer breaks on commit messages containing special characters, so every push to `main` reliably produces a tagged GitHub release and Docker image.
+</Update>
+
 <Update label="April 29, 2026" tags={["Feature"]}>
   ## New features
 
