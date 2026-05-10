@@ -7,6 +7,12 @@ mode: 'wide'
 
 You can always review the [latest release here](https://github.com/cinepro-org/core/releases/latest) and run it locally with `docker run -p 3000:3000 --name cinepro-core -e TMDB_API_KEY=your-tmdb-key ghcr.io/cinepro-org/core:latest` to see the newest features in action. For a detailed breakdown of recent changes, keep reading!
 
+<Update label="May 10, 2026" tags={["Feature"]}>
+  ## New features
+
+  - **CinePro UI public beta** — CinePro Core now prints a startup banner pointing to the new [CinePro UI](https://ui.cinepro.cc), a web frontend that talks to your running instance over its OMSS API. The banner generates a ready-to-use link of the form `https://ui.cinepro.cc/?omssurl=<your-instance-url>`, derived from your [`PUBLIC_URL`](/core/configuration/environment#param-public-url) (or `HOST` and `PORT` if `PUBLIC_URL` is unset). The UI is in public testing and is looking for contributors — see the [cinepro-org/ui repository](https://github.com/cinepro-org/ui) to get involved.
+</Update>
+
 <Update label="May 7, 2026" tags={["Feature", "Update", "Fix"]}>
   ## New features
 
