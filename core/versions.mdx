@@ -7,6 +7,16 @@ mode: 'wide'
 
 You can always review the [latest release here](https://github.com/cinepro-org/core/releases/latest) and run it locally with `docker run -p 3000:3000 --name cinepro-core -e TMDB_API_KEY=your-tmdb-key ghcr.io/cinepro-org/core:latest` to see the newest features in action. For a detailed breakdown of recent changes, keep reading!
 
+<Update label="May 10, 2026" tags={["Feature", "Fix"]}>
+  ## New features
+
+  - **CinePro UI public beta** — On startup, CinePro Core now prints a banner pointing you to the new [CinePro UI](https://ui.cinepro.cc/) public beta. The banner pre-fills the UI with your server's `PUBLIC_URL` (or the configured `HOST` and `PORT`), so you can try the web frontend against your own instance with a single click. Contributors are also welcome at the [CinePro UI repository](https://github.com/cinepro-org/ui).
+
+  ## Bug fixes
+
+  - **Readable release notes** — Automated GitHub Releases now render with proper line breaks and section formatting again. Previous releases collapsed everything onto a single line, making the categorized notes (Features, Bug Fixes, etc.) hard to read. New releases ship with the intended layout.
+</Update>
+
 <Update label="May 7, 2026" tags={["Feature", "Update", "Fix"]}>
   ## New features
 
