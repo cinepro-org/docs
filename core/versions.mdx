@@ -1,11 +1,40 @@
 ---
-title: 'Changelog'
-description: 'Change log for **CinePro/Core**.'
+title: 'CinePro Core changelog and release notes'
+description: 'Read the full CinePro Core changelog with release notes, new features, bug fixes, and breaking changes for every version of the streaming backend.'
 mode: 'wide'
 ---
 
 
 You can always review the [latest release here](https://github.com/cinepro-org/core/releases/latest) and run it locally with `docker run -p 3000:3000 --name cinepro-core -e TMDB_API_KEY=your-tmdb-key ghcr.io/cinepro-org/core:latest` to see the newest features in action. For a detailed breakdown of recent changes, keep reading!
+
+<Update label="May 10, 2026" tags={["Feature", "Fix"]}>
+  ## New features
+
+  - **CinePro UI public beta** — CinePro Core now prints a startup banner inviting you to try the new web UI at [ui.cinepro.cc](https://ui.cinepro.cc), pre-wired to point at your running instance. The link respects your configured [`PUBLIC_URL`](/core/configuration/environment#param-public-url), so a single click opens the UI connected to your server. The [CinePro UI project](https://github.com/cinepro-org/ui) is in public testing and looking for contributors.
+
+  ## Bug fixes
+
+  - **Cleaner automated release notes** — The automated GitHub release pipeline no longer collapses headings, code blocks, and bullet lists onto a single line. New releases for your [Docker deployment](/quickstart#docker-compose) ship with properly formatted, readable changelogs again.
+</Update>
+
+<Update label="May 7, 2026" tags={["Feature", "Update", "Fix"]}>
+  ## New features
+
+  - **AnyEmbed provider (preview)** — A new `anyembed` provider has been added to the [provider lineup](/core/configuration/providers). It ships **disabled by default** while the upstream API stabilizes, as their session and stream endpoints still intermittently return 403/500 responses. The implementation is fully in place and can be enabled manually by setting `readonly enabled = true` in the provider source once the service becomes reliable enough for production use.
+  - **VidNest gains `delta` and `moviebox` backends** — The `vidnest` provider now aggregates the additional `delta` and `moviebox` upstream servers alongside the existing backends. These contribute more playable streams and per-language audio variants for movie and TV lookups with no configuration changes required.
+
+  ## Updates
+
+  - **Cleaner Stremio addon defaults** — The previously bundled WebStreamerMBG and Streamify community addons have been removed from the default `stremioAddons` configuration. The default array is now empty, allowing you to curate your own [Stremio addon sources](/core/configuration/environment#param-stremio-addon) without first removing bundled entries. Setting `STREMIO_ADDON=true` still enables CinePro's native addon manifest at `/stremio/manifest.json`.
+  - **Peachify hardening** — Peachify now rotates a randomized desktop user agent on every request, uses the new `uwu.eat-peach.sbs` MovieBox endpoint, and includes a more robust AES-GCM decryption pipeline for encrypted payloads. The deprecated and unreliable `ice` upstream server has been removed from rotation.
+  - **StreamMafia endpoint update** — The `streammafia` provider now uses the new `sf.streammafia.to` host following an upstream domain migration. Existing setups continue working without configuration changes.
+  - **02MovieDownloader restored** — The `02moviedownloader` provider now transparently supports the upstream's new encrypted response format (AES-256-CBC with a per-token-derived key), restoring download source resolution for previously failing titles.
+
+  ## Bug fixes
+
+  - **Broader proxy URL recognition** — Proxy detection now correctly recognizes both `m3u8-proxy?url=` and `mp4-proxy?url=` patterns, including URLs served from `*.workers.dev` hosts. This restores playback for direct MP4 and proxied streams that were previously skipped.
+  - **Release workflow stability** — The automated release pipeline no longer breaks on commit messages containing special characters, ensuring every push to `main` reliably produces a tagged GitHub release and Docker image.
+</Update>
 
 <Update label="April 29, 2026" tags={["Feature"]}>
   ## New features

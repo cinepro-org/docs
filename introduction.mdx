@@ -1,6 +1,6 @@
 ---
-title: "Introduction"
-description: "Welcome to the CinePro Core documentation. CinePro Core is an [OMSS‑compliant](https://github.com/omss-spec/omss-spec) streaming backend that powers the CinePro ecosystem."
+title: "Introduction to CinePro Core"
+description: "Learn how CinePro Core, an OMSS-compliant TypeScript streaming backend, aggregates third-party providers into a single unified API for movies and TV."
 mode: "wide"
 ---
 
@@ -30,7 +30,7 @@ It acts as **a unified scraping and streaming engine that aggregates multiple th
 <CardGroup cols={2}>
 
 
-  <Card title="Docker‑ready deployment" icon="docker" href="/core/configuration/deployment">
+  <Card title="Docker‑ready deployment" icon="docker" href="/quickstart#docker-recommended">
 
     Ship CinePro Core as a container. Official multi‑architecture images are published to GitHub Container Registry (ghcr.io/cinepro-org/core); run the latest version with one command `docker run -p 3000:3000 --name cinepro-core -e TMDB_API_KEY=your-tmdb-key ghcr.io/cinepro-org/core:latest`!
 
@@ -64,6 +64,12 @@ It acts as **a unified scraping and streaming engine that aggregates multiple th
   <Card title="CineHome integration" icon="hard-drive" href="/cinehome/coming-soon">
 
     Integrates with the CineHome services to automate downloading and organizing media to your own storage (such as a NAS or home server). [Coming soon!]
+
+  </Card>
+
+  <Card title="CinePro UI (public beta)" icon="globe" href="https://ui.cinepro.cc">
+
+    Pair your CinePro Core instance with the [CinePro UI](https://ui.cinepro.cc) — a browser frontend that connects to your server via its OMSS API. On startup, CinePro Core prints a banner with a ready-to-use link of the form `https://ui.cinepro.cc/?omssurl=<your-instance-url>`. The UI is in public testing and contributions are welcome at [cinepro-org/ui](https://github.com/cinepro-org/ui).
 
   </Card>
 
