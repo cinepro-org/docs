@@ -16,8 +16,13 @@ You can always review the [latest release here](https://github.com/cinepro-org/c
 
   ## Bug fixes
 
-  - **Broader stream pattern matching** — Added `trendimovies.com/tgstream/stream` to the recognized streaming-pattern list, so Peachify links served from that CDN are properly proxied during playback.
+  - **Broader stream pattern matching** — Added `trendimovies.com/tgstream/stream` and a generic `/content/.../page-*.html` matcher to the recognized streaming-pattern list, so Peachify links served from those CDNs are properly proxied during playback.
   - **More resilient release pipeline** — Cleaned up the automated GitHub release workflow so pushes to `main` produce tagged releases and multi-architecture Docker images more reliably for your [Docker deployment](/quickstart#docker-compose).
+
+  ## Developer experience
+
+  - **Codeberg mirror** — A new GitHub Actions workflow now mirrors the CinePro Core repository to Codeberg every six hours and on every push, giving contributors a backup remote outside GitHub.
+  - **Single-provider testing recipe** — The [contributing guide](https://github.com/cinepro-org/core/blob/main/.github/CONTRIBUTING.md) now documents how to add a per-provider `test.ts` script and run it with `npx tsx`, so you can iterate on one provider without booting the full server.
 </Update>
 
 <Update label="May 10, 2026" tags={["Feature", "Fix"]}>
