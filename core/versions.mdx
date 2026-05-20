@@ -7,6 +7,12 @@ mode: 'wide'
 
 You can always review the [latest release here](https://github.com/cinepro-org/core/releases/latest) and run it locally with `docker run -p 3000:3000 --name cinepro-core -e TMDB_API_KEY=your-tmdb-key ghcr.io/cinepro-org/core:latest` to see the newest features in action. For a detailed breakdown of recent changes, keep reading!
 
+<Update label="May 20, 2026" tags={["Feature"]}>
+  ## New features
+
+  - **VidApi provider** — A new `vidapi` provider has been added to the [provider lineup](/core/configuration/providers) and is enabled by default. It contributes additional movie and TV sources by querying the upstream VidApi endpoint with the title's TMDB ID (plus season and episode for TV) and returns playable HLS or MP4 streams alongside any default subtitle tracks (`vtt`, `srt`, `ass`, `ssa`, or `ttml`). Stream URLs are routed through CinePro's built-in proxy so the required headers are forwarded automatically — no configuration changes required.
+</Update>
+
 <Update label="May 19, 2026" tags={["Update", "Fix"]}>
   ## Updates
 
