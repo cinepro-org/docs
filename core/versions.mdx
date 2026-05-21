@@ -10,19 +10,15 @@ You can always review the [latest release here](https://github.com/cinepro-org/c
 <Update label="May 21, 2026" tags={["Feature", "Update"]}>
   ## New features
 
-  - **Tulnex provider** — A new `tulnex` provider has been added to the [provider lineup](/core/configuration/providers) and is enabled by default. It fans out across 14 upstream backends (`onion`, `vidzee`, `icefy`, `tik`, `vaplayer`, `vidfast-alpha`, `uniquestream`, `vidfast-mega`, `vidfast-vrapid`, `allmovies`, `vidlink`, `vidfast-vedge`, `vidfast-vfast`, and `moviebox`) in parallel and aggregates every playable stream into a single result for movies and TV. No configuration changes required.
-  - **Vercel deployment support** — CinePro Core now ships with a `vercel.json` configuration, making it possible to deploy your instance to [Vercel](https://vercel.com) in addition to the existing [Docker](/quickstart#docker-compose) and bare-metal options.
-  - **`INTERNAL_DEBUG` flag** — A new `INTERNAL_DEBUG` [environment variable](/core/configuration/environment) lets you opt into receiving non-playable sources in responses for debugging. Defaults to `false` so production lookups continue to return only playable streams.
+  - **Tulnex provider** — A new `tulnex` provider has been added to the [provider lineup](/core/configuration/providers) and is enabled by default. It fans out across 14 upstream Tulnex servers (including `onion`, `vidzee`, `icefy`, `vaplayer`, multiple `vidfast-*` variants, `allmovies`, `vidlink`, and `moviebox`) in parallel, decrypts each payload, and aggregates every playable stream into a single result for both movies and TV.
+  - **One-click Vercel deployments** — CinePro Core now ships with a `vercel.json` so you can deploy the backend as a serverless function on Vercel in a few clicks. See the new **Vercel** tab in the [quickstart](/quickstart) for the full flow, including how to wire up `TMDB_API_KEY` and `PUBLIC_URL`.
+  - **`INTERNAL_DEBUG` flag** — A new [`INTERNAL_DEBUG`](/core/configuration/environment#param-internal-debug) environment variable returns every source the providers discover (including non-playable ones) and attaches per-provider diagnostics. Intended for provider development and debugging — leave it `false` in normal use.
 
   ## Updates
 
-  - **Every returned source is playable** — Provider responses have been hardened across the board so unplayable candidates are filtered out before the API returns them. Lookups now consistently surface only working streams.
-
-  ## Bug fixes
-
-  - **VidApi** — Stream filtering and request headers have been reworked so previously skipped sources are now returned and upstream requests are accepted more reliably.
-  - **VidNest quality labels** — Quality values are now normalized (e.g. `1080p`, `720p`) instead of forwarding the raw upstream label, making it easier for clients to display and sort sources.
-  - **VixSrc subtitles** — The broken VixSrc subtitle parser has been disabled while a proper fix is in progress, preventing malformed subtitle entries from leaking into responses.
+  - **Every returned source is now playable** — In normal mode (`INTERNAL_DEBUG=false`), the API filters out unplayable candidates upstream so clients only see streams that should actually play.
+  - **Cleaner VidApi responses** — The `vidapi` provider now uses a stable desktop user agent and includes an explicit `Accept` header, improving compatibility with upstream stream URL filtering.
+  - **Normalized VidNest quality labels** — VidNest stream qualities are now passed through the shared quality inference so labels (e.g. `1080p`, `720p`) match the rest of the providers.
 </Update>
 
 <Update label="May 20, 2026" tags={["Feature"]}>
