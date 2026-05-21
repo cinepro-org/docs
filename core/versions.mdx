@@ -7,6 +7,24 @@ mode: 'wide'
 
 You can always review the [latest release here](https://github.com/cinepro-org/core/releases/latest) and run it locally with `docker run -p 3000:3000 --name cinepro-core -e TMDB_API_KEY=your-tmdb-key ghcr.io/cinepro-org/core:latest` to see the newest features in action. For a detailed breakdown of recent changes, keep reading!
 
+<Update label="May 21, 2026" tags={["Feature", "Update"]}>
+  ## New features
+
+  - **Tulnex provider** — A new `tulnex` provider has been added to the [provider lineup](/core/configuration/providers) and is enabled by default. It fans out across 14 upstream backends (`onion`, `vidzee`, `icefy`, `tik`, `vaplayer`, `vidfast-alpha`, `uniquestream`, `vidfast-mega`, `vidfast-vrapid`, `allmovies`, `vidlink`, `vidfast-vedge`, `vidfast-vfast`, and `moviebox`) in parallel and aggregates every playable stream into a single result for movies and TV. No configuration changes required.
+  - **Vercel deployment support** — CinePro Core now ships with a `vercel.json` configuration, making it possible to deploy your instance to [Vercel](https://vercel.com) in addition to the existing [Docker](/quickstart#docker-compose) and bare-metal options.
+  - **`INTERNAL_DEBUG` flag** — A new `INTERNAL_DEBUG` [environment variable](/core/configuration/environment) lets you opt into receiving non-playable sources in responses for debugging. Defaults to `false` so production lookups continue to return only playable streams.
+
+  ## Updates
+
+  - **Every returned source is playable** — Provider responses have been hardened across the board so unplayable candidates are filtered out before the API returns them. Lookups now consistently surface only working streams.
+
+  ## Bug fixes
+
+  - **VidApi** — Stream filtering and request headers have been reworked so previously skipped sources are now returned and upstream requests are accepted more reliably.
+  - **VidNest quality labels** — Quality values are now normalized (e.g. `1080p`, `720p`) instead of forwarding the raw upstream label, making it easier for clients to display and sort sources.
+  - **VixSrc subtitles** — The broken VixSrc subtitle parser has been disabled while a proper fix is in progress, preventing malformed subtitle entries from leaking into responses.
+</Update>
+
 <Update label="May 20, 2026" tags={["Feature"]}>
   ## New features
 
