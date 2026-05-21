@@ -312,6 +312,44 @@ Before you start, you will need:
     </Steps>
   </Tab>
 
+  <Tab title="Vercel">
+    <Note>
+      The repository ships with a `vercel.json` so you can deploy CinePro Core as a serverless function on Vercel. Use this for quick demos and personal instances; long-running provider calls may hit Vercel's per-request execution limits.
+    </Note>
+
+    <Steps>
+      <Step title="Fork or clone the repository" icon="git-branch">
+        Fork [`cinepro-org/core`](https://github.com/cinepro-org/core) on GitHub so Vercel can deploy from your copy.
+      </Step>
+
+      <Step title="Import the project into Vercel" icon="cloud-upload">
+        In the [Vercel dashboard](https://vercel.com/new), select **Add New → Project**, then import your fork. Vercel reads `vercel.json` automatically — no build configuration changes required.
+      </Step>
+
+      <Step title="Set environment variables" icon="lock-keyhole">
+        Add at least your TMDB API key under **Project Settings → Environment Variables**:
+
+        ```bash
+        TMDB_API_KEY=your_tmdb_api_key_here
+        ```
+
+        Add any other variables from the [environment reference](/core/configuration/environment) you need, such as `PUBLIC_URL`, `CORS_ORIGIN`, `STREMIO_ADDON`, or Redis settings.
+
+        <Tip>
+          Set `PUBLIC_URL` to your Vercel deployment URL (e.g. `https://your-app.vercel.app`) so generated proxy and Stremio URLs resolve correctly.
+        </Tip>
+      </Step>
+
+      <Step title="Deploy" icon="play">
+        Click **Deploy**. Vercel builds the project and exposes the API at your project URL. Open `https://<your-app>.vercel.app/health` to confirm the server is reachable.
+      </Step>
+    </Steps>
+
+    <Warning>
+      The default `vercel.json` caps function execution at **10 seconds**. Some providers fan out to many upstreams and may exceed this on cold starts. If you hit timeouts, bump `functions["src/index.ts"].maxDuration` in `vercel.json` (paid Vercel plans only) or self-host with Docker.
+    </Warning>
+  </Tab>
+
 </Tabs>
 
 ---

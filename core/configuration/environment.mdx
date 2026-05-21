@@ -130,6 +130,18 @@ description: "Configure CinePro Core through a .env file with environment variab
   </Note>
 </ParamField>
 
+<ParamField path="INTERNAL_DEBUG" type="boolean" default="false">
+  Returns **every** source the providers find — including non-playable ones — and attaches detailed per-provider diagnostics to the response. Use this when developing or debugging providers; leave it off in normal use.
+
+  ```bash .env
+  INTERNAL_DEBUG=true
+  ```
+
+  <Warning>
+    Keep `INTERNAL_DEBUG=false` for regular usage. With it enabled, the API surfaces broken or unplayable sources alongside working ones, which clients are not expected to filter.
+  </Warning>
+</ParamField>
+
 <ParamField path="MCP_ENABLED" type="boolean" default="false">
   Enables Model Context Protocol support for MCP-compatible clients and AI agents.
 
