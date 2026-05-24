@@ -104,7 +104,7 @@
                 ]
             },
             {
-                "product": "CinePro Frontend",
+                "product": "CinePro/ui",
                 "description": "Beautiful Movie/TV Web App",
                 "icon": "monitor-play",
                 "versions": [
@@ -116,7 +116,7 @@
                             {
                                 "group": "Get started",
                                 "icon": "circle-play",
-                                "pages": ["frontend/introduction"]
+                                "pages": ["ui/notice","ui/setup"]
                             }
                         ]
                     }
@@ -233,15 +233,15 @@
         "indexing": "navigable"
     },
     "banner": {
-        "content": "🎬 **CinePro is officially here!** Check out the [latest release](https://github.com/cinepro-org/core/releases/latest) for details!🥳",
+        "content": "🎬 **CinePro/ui is in beta!** Are you running CinePro/Core? [Try it out yourself!](/ui/notice)🥳",
         "type": "info",
-        "dismissible": true
+        "dismissible": false
     },
     "errors": {
         "404": {
             "redirect": false,
             "title": "Pageception",
-            "description": "This page fell through a rabbit hole, hopped on the Hogwarts Express, and got lost in Gotham.<br></br>**[Reality resumes here](/)**<br></br><br></br>If you are looking for past documentation, you can find it in [the docs repo](https://github.com/cinepro-org/docs/commits)."
+            "description": "This page fell through a rabbit hole, hopped on the Hogwarts Express, and got lost in Gotham.<br></br>**[Reality resumes here](/)**<br></br><br></br>If you are looking for past documentation, you can find it in [the commit history](https://github.com/cinepro-org/docs/commits)."
         }
     }
 }

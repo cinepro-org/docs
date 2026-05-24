@@ -1,0 +1,66 @@
+---
+title: 'CinePro UI - Public Beta'
+description: 'CinePro UI is currently in public beta. You can test it at [ui.cinepro.cc](https://ui.cinepro.cc).'
+icon: 'flask-conical'
+mode: 'wide'
+---
+
+<Card
+    title="Try out the new CinePro/ui!"
+    href="/ui/setup"
+    icon="play"
+    cta="Connection Guide"
+>
+    Set everything up and enjoy the Binge Session uninterrupted.
+<Frame caption="Preview of https://ui.cinepro.cc" >
+  <img src="https://raw.githubusercontent.com/cinepro-org/ui/refs/heads/main/src/client/public/images/home.png" alt="CinePro/ui homepage" style={{ height: '300px', width: '400px' }} noZoom />
+    <img src="https://raw.githubusercontent.com/cinepro-org/ui/refs/heads/main/src/client/public/images/phone.png" alt="CinePro/ui homepage phone view" style={{ height: '300px', width: '400px' }} noZoom />
+    
+</Frame>
+</Card>
+
+<Warning>CinePro UI is in **early beta**. Expect bugs, incomplete features, and breaking changes between updates. It is not suitable for production use.</Warning>
+
+CinePro UI is a full-stack movie and TV interface built on [@fastify/vite](https://github.com/fastify/fastify-vite) with [shadcn/ui](https://ui.shadcn.com/). It connects to a CinePro Core instance (or any OMSS-compliant backend) to browse and stream movies and TV shows with the help of the official [`@omss/sdk`](https://github.com/omss-spec/sdk).
+
+---
+
+## What ~(should)~ works
+
+The following pages and features are available in the current build:
+
+- **Home** — trending and featured content from TMDB
+- **Movies** — browse and filter movies
+- **Shows** — browse and filter TV series
+- **Watch** — stream movies and episodes via HLS.js using sources from CinePro Core
+- **Settings** — configure the connected OMSS backend URL and preferences
+
+---
+
+## Known limitations
+
+<Note>This information listed here, might be not up to date.</Note>
+
+Because this is an early beta, the following limitations currently apply:
+
+- User accounts and watch history are **not yet stable**. Data may be lost between updates.
+- Some UI components are incomplete or placeholder-only.
+- The HLS player may behave differently across browsers (best tested in Chrome/Chromium).
+- Mobile experience is barely functional but not fully polished.
+
+---
+
+## Report a bug or contribute
+
+Bugs and feedback are welcome on [GitHub](https://github.com/cinepro-org/ui).
+
+If you'd like to contribute — whether that's fixing a bug, adding a feature, or improving the UI — fork the repository and open a pull request. Motivated contributors (and their agents) are very welcome.
+
+<CardGroup cols={2}>
+    <Card title="Open an issue" icon="bug" href="https://github.com/cinepro-org/ui/issues">
+        Report a bug or request a feature on GitHub.
+    </Card>
+    <Card title="Community" icon="users" href="https://github.com/orgs/cinepro-org/discussions">
+        Join the discussion and connect with other contributors.
+    </Card>
+</CardGroup>

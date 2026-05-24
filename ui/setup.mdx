@@ -1,0 +1,42 @@
+---
+title: 'Setup CinePro/UI'
+description: 'Quickstart using CinePro/UI with CinePro Core'
+icon: 'cable'
+mode: "wide"
+---
+
+CinePro UI at [ui.cinepro.cc](https://ui.cinepro.cc/) is a hosted interface — it runs in your browser but does **not** include a backend. To stream/watch content you need a running CinePro Core instance and then point the UI at it.
+
+<Info>This guide covers the fastest path: spin up Core locally, then connect the hosted UI to it. More detailed docs will come later.</Info>
+
+---
+
+<Steps>
+    <Step title="Run CinePro Core">For that, do the [Quickstart Guide](/quickstart)</Step>
+    <Step title="Go to ui.cinepro.cc and give access">
+        The hosted UI at [ui.cinepro.cc](https://ui.cinepro.cc/) runs in your browser and calls your Core instance directly on your device. **For that reason you have to allow your browser access to "Apps on this Device".**
+    </Step>
+    <Step title="Connect the UI to Core">
+        There are two ways to point [ui.cinepro.cc](https://ui.cinepro.cc/) at your CinePro Core instance.
+
+        ### Option A — URL parameter
+
+        Append `?omssurl=<your-instance-url>` to the hosted UI URL and open it in your browser. The UI will automatically use that instance without any manual setup. In the latest CinePro Core releases, it already provides you the link in the console.
+
+        ```
+        https://ui.cinepro.cc/?omssurl=http://localhost:3000
+        ```
+
+        ### Option B — Settings page
+
+        1. Open [ui.cinepro.cc](https://ui.cinepro.cc/) in your browser.
+        2. Navigate to [Settings → OMSS tab](https://ui.cinepro.cc/settings?tab=omss).
+        3. Enter your Core instance URL and wait until the badge says `Connected!`.
+
+        <Tip>
+        You can verify that everything is alright, when the Globe in the header is connected.
+        </Tip>
+    </Step>
+</Steps>
+
+Enjoy!
