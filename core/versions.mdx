@@ -7,6 +7,14 @@ mode: 'wide'
 
 You can always review the [latest release here](https://github.com/cinepro-org/core/releases/latest) and run it locally with `docker run -p 3000:3000 --name cinepro-core -e TMDB_API_KEY=your-tmdb-key ghcr.io/cinepro-org/core:latest` to see the newest features in action. For a detailed breakdown of recent changes, keep reading!
 
+<Update label="May 24, 2026" tags={["UI", "Update"]}>
+  ## CinePro/ui updates
+
+  - **New default color theme** — The default accent color in [CinePro/ui](https://ui.cinepro.cc) has changed from orange to red, matching the rest of the CinePro brand. The `Orange` option has been removed from the color theme picker in [Settings](https://ui.cinepro.cc/settings). If you previously selected `Orange`, pick a new theme from `Red`, `Rose`, `Purple`, and the other available accents.
+  - **Service worker now opt-in for self-hosters** — When self-hosting [CinePro/ui](/ui/setup), the PWA service worker is now only registered for standalone builds. Set `VITE_STANDALONE=true` in your `.env` before running `npm run build` if you want offline support and installable PWA behavior. The hosted UI at [ui.cinepro.cc](https://ui.cinepro.cc) is unaffected.
+  - **Build now reads `.env` automatically** — `npm run build` now loads variables from `.env` via `dotenv-cli`, so you no longer need to export them in your shell before building. Make sure `VITE_TMDB_API_KEY` (and `VITE_STANDALONE` if applicable) are present in your `.env` file.
+</Update>
+
 <Update label="May 21, 2026" tags={["Feature", "Update"]}>
   ## New features
 
