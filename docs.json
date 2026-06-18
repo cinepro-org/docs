@@ -233,9 +233,9 @@
         "indexing": "navigable"
     },
     "banner": {
-        "content": "🎬 **CinePro/ui is in beta!** Are you running CinePro/Core? [Try it out yourself!](/ui/notice)🥳",
-        "type": "info",
-        "dismissible": false
+      "content": "⚠️ [CinePro/Core is being rewritten.](https://github.com/cinepro-org/core/issues/68) Features may not work. Please do not open Issues or PRs.",
+      "type": "critical",
+      "dismissible": false
     },
     "errors": {
         "404": {
