@@ -233,7 +233,7 @@
         "indexing": "navigable"
     },
     "banner": {
-      "content": "⚠️ [CinePro/Core is being rewritten.](https://github.com/cinepro-org/core/issues/68) Features may not work. Please do not open Issues or PRs.",
+      "content": "⚠️ [CinePro/Core is being rewritten. Features may not work. Please do not open Issues or PRs. ETA till fix: ~4 Weeks](https://github.com/cinepro-org/core/issues/68)",
       "type": "critical",
       "dismissible": false
     },
