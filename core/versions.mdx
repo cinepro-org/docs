@@ -7,6 +7,13 @@ mode: 'wide'
 
 You can always review the [latest release here](https://github.com/cinepro-org/core/releases/latest) and run it locally with `docker run -p 3000:3000 --name cinepro-core -e TMDB_API_KEY=your-tmdb-key ghcr.io/cinepro-org/core:latest` to see the newest features in action. For a detailed breakdown of recent changes, keep reading!
 
+<Update label="June 22, 2026" tags={["UI", "Update"]}>
+  ## CinePro/ui updates
+
+  - **Faster first-load splash** — The startup overlay on [CinePro/ui](https://ui.cinepro.cc) no longer blocks real content behind a blur for several seconds on first visit. The brand moment is preserved, but the artificial wait has been cut so the app feels noticeably lighter on entry. The splash continues to show only once per browser session.
+  - **Sharper glass effects across screen sizes** — The glass refraction filter used on header and drawer surfaces now scales its displacement to the element's own size instead of using fixed pixel values tuned for small buttons. Wide pills and large panels no longer look melty or distorted, while smaller controls keep their original look.
+</Update>
+
 <Update label="June 18, 2026" tags={["UI", "Update"]}>
   ## CinePro/ui updates
 
